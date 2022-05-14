@@ -15,16 +15,12 @@ class App {
         });
     }
     toggleSelection(el) {
+        const clearAll = () => Array.from(document.getElementsByClassName('object')).forEach(({ classList }) => classList.remove('selected'));
         const { classList } = el;
-        if (classList.contains('selected')) {
-            this.clearSelection();
-            return;
+        if (!classList.contains('selected')) {
+            clearAll();
         }
-        this.clearSelection();
-        classList.add('selected');
-    }
-    clearSelection() {
-        Array.from(document.getElementsByClassName('object')).forEach((el) => el.classList.remove('selected'));
+        classList.toggle('selected');
     }
 }
 new App();
