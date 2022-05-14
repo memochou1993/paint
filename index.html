@@ -14,31 +14,39 @@
         }
         #canvas {
             border: 1px solid black;
+            border-radius: 8px;
             width: 660px;
         }
-        .tool {
+        .object {
             align-items: center;
             border: 1px solid black;
+            border-radius: 8px;
+            box-sizing: border-box;
+            cursor: pointer;
             display: flex;
             height: 100px;
             justify-content: center;
             text-align: center;
+            user-select: none;
             width: 100px;
         }
-        .tool:not(:last-child) {
+        .object:not(:last-child) {
             margin: 0 10px 10px 0;
+        }
+        .object.selected {
+            border: 2.5px solid black;
         }
     </style>
 </head>
 <body>
     <div style="display: flex;">
         <div style="display: flex; flex-direction: column;">
-            <div class="tool">tool 1</div>
-            <div class="tool">tool 2</div>
-            <div class="tool">tool 3</div>
-            <div class="tool">tool 4</div>
-            <div class="tool">tool 5</div>
-            <div class="tool">tool 6</div>
+            <div class="object">object 1</div>
+            <div class="object">object 2</div>
+            <div class="object">object 3</div>
+            <div class="object">object 4</div>
+            <div class="object" id="rectangle">Rectangle</div>
+            <div class="object" id="ellipse">Ellipse</div>
         </div>
         <canvas id="canvas"></canvas>
     </div>
