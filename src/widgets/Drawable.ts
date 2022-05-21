@@ -1,6 +1,8 @@
 interface Drawable {
-  readonly name: string;
   readonly el: Element;
+  readonly canvas: HTMLCanvasElement;
+  readonly ctx: CanvasRenderingContext2D;
+  readonly type: string;
   draw(): void;
 }
 

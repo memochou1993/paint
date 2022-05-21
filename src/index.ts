@@ -1,6 +1,6 @@
 import { WidgetType } from './enums';
 import { WidgetFactory } from './factories';
-import { Drawable } from './widgets';
+import { Widget } from './widgets';
 import './style.css';
 
 class App {
@@ -11,7 +11,7 @@ class App {
     WidgetType.ELLIPSE,
   ];
 
-  private widget: Drawable | null = null;
+  private widget: Widget | null = null;
 
   constructor() {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -22,15 +22,15 @@ class App {
   initWidgets() {
     this.widgets.forEach((type: string) => {
       const element = document.getElementById(type) as Element;
-      const widget = WidgetFactory.create(element, this.canvas) as Drawable;
+      const widget = WidgetFactory.create(element, this.canvas) as Widget;
       element.addEventListener('click', () => this.enableWidget(widget));
     });
   }
 
-  enableWidget(widget: Drawable) {
+  enableWidget(widget: Widget) {
     widget.el.classList.add('selected');
     this.widget?.el.classList.remove('selected');
-    this.widget = this.widget?.name === widget.name ? null : widget;
+    this.widget = this.widget?.type === widget.type ? null : widget;
   }
 
   initCanvas() {
