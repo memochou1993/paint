@@ -1,11 +1,11 @@
 import Widget from './Widget';
 import type { Drawable } from './Drawable';
-import Rectangle from './Rectangle';
-import Ellipse from './Ellipse';
+import RectangleWidget from './RectangleWidget';
+import EllipseWidget from './EllipseWidget';
 
 export {
   Widget,
   Drawable,
-  Rectangle,
-  Ellipse,
+  RectangleWidget,
+  EllipseWidget,
 };

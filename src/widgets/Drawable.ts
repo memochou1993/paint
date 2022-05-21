@@ -3,7 +3,11 @@ interface Drawable {
   readonly canvas: HTMLCanvasElement;
   readonly ctx: CanvasRenderingContext2D;
   readonly type: string;
-  draw(): void;
+  onCanvasMousedown(e: MouseEvent): void;
+  onCanvasMousemove(e: MouseEvent): void;
+  onCanvasMouseup(e: MouseEvent): void;
+  onCanvasMouseout(e: MouseEvent): void;
+  clear(): void;
 }
 
 export type { Drawable };

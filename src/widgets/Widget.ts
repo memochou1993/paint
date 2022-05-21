@@ -3,7 +3,7 @@ import { Drawable } from './Drawable';
 
 export default abstract class Widget implements Drawable {
   readonly el: Element;
-  
+
   readonly canvas: HTMLCanvasElement;
 
   readonly ctx: CanvasRenderingContext2D;
@@ -16,5 +16,15 @@ export default abstract class Widget implements Drawable {
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
   }
 
-  draw(): void {}
+  abstract onCanvasMousedown(e: MouseEvent): void;
+
+  abstract onCanvasMousemove(e: MouseEvent): void;
+
+  abstract onCanvasMouseup(e: MouseEvent): void;
+
+  abstract onCanvasMouseout(e: MouseEvent): void;
+
+  clear(): void {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
 }

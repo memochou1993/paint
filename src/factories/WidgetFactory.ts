@@ -1,17 +1,17 @@
 import { WidgetType } from '../enums';
 import {
   Drawable,
-  Rectangle,
-  Ellipse,
+  RectangleWidget,
+  EllipseWidget,
 } from '../widgets';
 
 export default class WidgetFactory {
   static create(element: Element, canvas: HTMLCanvasElement): Drawable | null {
     switch (element.id) {
       case WidgetType.RECTANGLE:
-        return new Rectangle(element, canvas);
+        return new RectangleWidget(element, canvas);
       case WidgetType.ELLIPSE:
-        return new Ellipse(element, canvas);
+        return new EllipseWidget(element, canvas);
       default:
         return null;
     }

@@ -34,10 +34,17 @@ class App {
   }
 
   initCanvas() {
-    this.canvas.addEventListener('click', () => {
-      if (this.widget) {
-        this.widget.draw();
-      }
+    this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
+      this.widget?.onCanvasMousedown(e);
+    });
+    this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
+      this.widget?.onCanvasMousemove(e);
+    });
+    this.canvas.addEventListener('mouseup', (e: MouseEvent) => {
+      this.widget?.onCanvasMouseup(e);
+    });
+    this.canvas.addEventListener('mouseout', (e: MouseEvent) => {
+      this.widget?.onCanvasMouseout(e);
     });
   }
 }
