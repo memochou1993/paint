@@ -1,9 +1,9 @@
-import { WidgetType } from '../enum';
+import { WidgetType } from '../enums';
 import {
   Drawable,
   Rectangle,
   Ellipse,
-} from '../widget';
+} from '../widgets';
 
 export default class WidgetFactory {
   static create(element: Element, canvas: HTMLCanvasElement): Drawable | null {

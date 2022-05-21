@@ -1,4 +1,4 @@
-import { WidgetType } from '../enum';
+import { WidgetType } from '../enums';
 import Widget from './Widget';
 import { Drawable } from './Drawable';
 

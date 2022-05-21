@@ -1,6 +1,6 @@
-import { WidgetType } from './enum';
-import { WidgetFactory } from './factory';
-import { Drawable } from './widget';
+import { WidgetType } from './enums';
+import { WidgetFactory } from './factories';
+import { Drawable } from './widgets';
 import './style.css';
 
 class App {
