@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   extends: [
     'airbnb-typescript/base',
     'plugin:import/recommended',
