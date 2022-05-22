@@ -1,9 +1,12 @@
-export default class Shape {
-  x: number = 0;
+export default abstract class Shape {
+  protected ctx: CanvasRenderingContext2D;
 
-  y: number = 0;
+  x: number;
 
-  constructor(x: number = 0, y: number = 0) {
+  y: number;
+
+  constructor(ctx: CanvasRenderingContext2D, x: number = 0, y: number = 0) {
+    this.ctx = ctx;
     this.x = x;
     this.y = y;
   }
@@ -15,4 +18,12 @@ export default class Shape {
   setY(y: number) {
     this.y = y;
   }
+
+  assign(shape: Shape): Shape {
+    return Object.assign(this, shape);
+  }
+
+  abstract draw(): void;
+
+  abstract isShapeless(): boolean;
 }

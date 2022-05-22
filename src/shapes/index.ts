@@ -1,7 +1,9 @@
-import Ellipse from './Ellipse';
+import Shape from './Shape';
 import Rectangle from './Rectangle';
+import Ellipse from './Ellipse';
 
 export {
-  Ellipse,
+  Shape,
   Rectangle,
+  Ellipse,
 };

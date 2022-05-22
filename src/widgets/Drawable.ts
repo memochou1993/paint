@@ -1,13 +1,18 @@
+import { Shape } from '../shapes';
+
 interface Drawable {
-  readonly el: Element;
-  readonly canvas: HTMLCanvasElement;
-  readonly ctx: CanvasRenderingContext2D;
-  readonly type: string;
+  type: string;
+  el: Element;
+  canvas: HTMLCanvasElement;
+  ctx: CanvasRenderingContext2D;
+  offsetX: number;
+  offsetY: number;
+  shapes: Array<Shape>;
+  clear(): void;
   onCanvasMousedown(e: MouseEvent): void;
   onCanvasMousemove(e: MouseEvent): void;
-  onCanvasMouseup(e: MouseEvent): void;
-  onCanvasMouseout(e: MouseEvent): void;
-  clear(): void;
+  onCanvasMouseup(e: MouseEvent): Shape;
+  onCanvasMouseout(e: MouseEvent): Shape;
 }
 
 export type { Drawable };
