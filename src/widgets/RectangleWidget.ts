@@ -9,14 +9,13 @@ export default class RectangleWidget extends Widget {
 
   onCanvasMousedown(e: MouseEvent): void {
     this.shape = new Rectangle(this.ctx);
-    this.shape.setX(e.clientX - this.offsetX);
-    this.shape.setY(e.clientY - this.offsetY);
+    this.shape.setX(e.offsetX);
+    this.shape.setY(e.offsetY);
   }
 
   onCanvasMousemove(e: MouseEvent): void {
-    this.clear();
-    this.shape.setWidth(e.clientX - this.offsetX - this.shape.x);
-    this.shape.setHeight(e.clientY - this.offsetY - this.shape.y);
+    this.shape.setWidth(e.offsetX - this.shape.x);
+    this.shape.setHeight(e.offsetY - this.shape.y);
     this.shape.draw();
   }
 

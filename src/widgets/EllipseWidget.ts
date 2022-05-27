@@ -9,14 +9,13 @@ export default class EllipseWidget extends Widget {
 
   onCanvasMousedown(e: MouseEvent): void {
     this.shape = new Ellipse(this.ctx);
-    this.shape.setX(e.clientX - this.offsetX);
-    this.shape.setY(e.clientY - this.offsetY);
+    this.shape.setX(e.offsetX);
+    this.shape.setY(e.offsetY);
   }
 
   onCanvasMousemove(e: MouseEvent): void {
-    this.clear();
-    this.shape.setRadiusX(Math.abs(e.clientX - this.offsetX - this.shape.x));
-    this.shape.setRadiusY(Math.abs(e.clientY - this.offsetY - this.shape.y));
+    this.shape.setRadiusX(Math.abs(e.offsetX - this.shape.x));
+    this.shape.setRadiusY(Math.abs(e.offsetY - this.shape.y));
     this.shape.draw();
   }
 

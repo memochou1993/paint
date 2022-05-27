@@ -24,6 +24,10 @@ export default abstract class Shape {
   }
 
   abstract draw(): void;
+  
+  abstract select(): void;
+  
+  abstract contains(x: number, y: number): boolean;
 
   abstract isShapeless(): boolean;
 }

@@ -6,6 +6,8 @@ import './style.css';
 
 class App {
   private canvas: HTMLCanvasElement;
+  
+  private ctx: CanvasRenderingContext2D;
 
   private widgets: Array<WidgetType> = [
     WidgetType.RECTANGLE,
@@ -20,6 +22,7 @@ class App {
 
   constructor() {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
+    this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     this.initWidgets();
     this.initCanvas();
   }
@@ -27,7 +30,7 @@ class App {
   initWidgets() {
     this.widgets.forEach((type: string) => {
       const element = document.getElementById(type) as Element;
-      const widget = WidgetFactory.create(element, this.canvas) as Drawable;
+      const widget = WidgetFactory.create(element, this.ctx) as Drawable;
       element.addEventListener('click', () => this.toggleWidget(widget));
     });
   }
@@ -39,6 +42,12 @@ class App {
   }
 
   initCanvas() {
+    this.canvas.addEventListener('click', (e: MouseEvent) => {
+      e.preventDefault();
+      if (this.widget) return;
+      this.clear();
+      this.select(e);
+    });
     this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
       e.preventDefault();
       if (!this.widget) return;
@@ -49,8 +58,9 @@ class App {
       e.preventDefault();
       if (!this.widget) return;
       if (!this.isDrawing) return;
+      this.clear();
+      this.redraw();
       this.widget.onCanvasMousemove(e);
-      this.shapes.forEach((shape) => shape.draw());
     });
     this.canvas.addEventListener('mouseup', (e: MouseEvent) => {
       e.preventDefault();
@@ -62,10 +72,26 @@ class App {
     this.canvas.addEventListener('mouseout', (e: MouseEvent) => {
       e.preventDefault();
       if (!this.widget) return;
+      if (!this.isDrawing) return;
       const shape = this.widget.onCanvasMouseout(e);
       if (!shape.isShapeless()) this.shapes.push(shape);
       this.stop();
     });
+  }
+
+  clear(): void {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  redraw(): void {
+    this.shapes.forEach((shape) => shape.draw());
+  }
+
+  select(e: MouseEvent): void {
+    let index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
+    if (index >= 0) index = this.shapes.length - index - 1;
+    this.shapes.forEach((shape, i) => i !== index && shape.draw());
+    if (index >= 0) this.shapes[index].select();
   }
 
   start() {

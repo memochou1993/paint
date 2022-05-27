@@ -38,9 +38,25 @@ export default class Ellipse extends Shape {
   }
 
   draw(): void {
+    this.ctx.fillStyle = '#FFFFFF';
     this.ctx.beginPath();
     this.ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, this.rotation, this.startAngle, this.endAngle);
+    this.ctx.fill();
     this.ctx.stroke();
+  }
+
+  select(): void {    
+    this.ctx.fillStyle = '#FFFFFF';
+    this.ctx.beginPath();
+    this.ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, this.rotation, this.startAngle, this.endAngle);
+    this.ctx.fill();
+    this.ctx.stroke();
+  }
+
+  contains(x: number, y: number): boolean {
+    const path = new Path2D();
+    path.ellipse(this.x, this.y, this.radiusX, this.radiusY, this.rotation, this.startAngle, this.endAngle);
+    return this.ctx.isPointInPath(path, x, y);
   }
 
   isShapeless(): boolean {

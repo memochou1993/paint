@@ -26,7 +26,21 @@ export default class Rectangle extends Shape {
   }
 
   draw(): void {
+    this.ctx.fillStyle = '#FFFFFF';
+    this.ctx.fillRect(this.x, this.y, this.width, this.height);
     this.ctx.strokeRect(this.x, this.y, this.width, this.height);
+  }
+
+  select(): void {    
+    this.ctx.fillStyle = '#FFFFFF';
+    this.ctx.fillRect(this.x, this.y, this.width, this.height);
+    this.ctx.strokeRect(this.x, this.y, this.width, this.height);
+  }
+
+  contains(x: number, y: number): boolean {
+    const path = new Path2D();
+    path.rect(this.x, this.y, this.width, this.height);
+    return this.ctx.isPointInPath(path, x, y);
   }
 
   isShapeless(): boolean {
