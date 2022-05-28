@@ -45,7 +45,6 @@ class App {
     this.canvas.addEventListener('click', (e: MouseEvent) => {
       e.preventDefault();
       if (this.widget) return;
-      this.clear();
       this.select(e);
     });
     this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
@@ -58,7 +57,6 @@ class App {
       e.preventDefault();
       if (!this.widget) return;
       if (!this.isDrawing) return;
-      this.clear();
       this.redraw();
       this.widget.onCanvasMousemove(e);
     });
@@ -84,10 +82,12 @@ class App {
   }
 
   redraw(): void {
+    this.clear();
     this.shapes.forEach((shape) => shape.draw());
   }
 
   select(e: MouseEvent): void {
+    this.clear();
     let index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
     if (index >= 0) index = this.shapes.length - index - 1;
     this.shapes.forEach((shape, i) => i !== index && shape.draw());
