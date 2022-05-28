@@ -1,3 +1,4 @@
+import { ANCHOR_WIDTH, ANCHOR_HEIGHT } from '../constants';
 import Shape from './Shape';
 
 export default class Rectangle extends Shape {
@@ -31,10 +32,17 @@ export default class Rectangle extends Shape {
     this.ctx.strokeRect(this.x, this.y, this.width, this.height);
   }
 
-  select(): void {    
+  select(): void {
     this.ctx.fillStyle = '#FFFFFF';
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
     this.ctx.strokeRect(this.x, this.y, this.width, this.height);
+    this.ctx.beginPath();
+    this.ctx.rect(this.x + this.width / 2 - ANCHOR_WIDTH / 2, this.y - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
+    this.ctx.rect(this.x + this.width / 2 - ANCHOR_WIDTH / 2, this.y + this.height - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
+    this.ctx.rect(this.x - ANCHOR_WIDTH / 2, this.y + this.height / 2 - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
+    this.ctx.rect(this.x + this.width - ANCHOR_WIDTH / 2, this.y + this.height / 2 - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
+    this.ctx.fillStyle = '#000000';
+    this.ctx.fill();
   }
 
   contains(x: number, y: number): boolean {

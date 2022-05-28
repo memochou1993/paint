@@ -1,3 +1,4 @@
+import { ANCHOR_WIDTH, ANCHOR_HEIGHT } from '../constants';
 import Shape from './Shape';
 
 export default class Ellipse extends Shape {
@@ -51,6 +52,13 @@ export default class Ellipse extends Shape {
     this.ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, this.rotation, this.startAngle, this.endAngle);
     this.ctx.fill();
     this.ctx.stroke();
+    this.ctx.beginPath();
+    this.ctx.rect(this.x - ANCHOR_WIDTH / 2, this.y - this.radiusY - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
+    this.ctx.rect(this.x - ANCHOR_WIDTH / 2, this.y + this.radiusY - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
+    this.ctx.rect(this.x - this.radiusX - ANCHOR_WIDTH / 2, this.y - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
+    this.ctx.rect(this.x + this.radiusX - ANCHOR_WIDTH / 2, this.y - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
+    this.ctx.fillStyle = '#000000';
+    this.ctx.fill();
   }
 
   contains(x: number, y: number): boolean {
