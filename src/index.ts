@@ -64,6 +64,7 @@ class App {
       e.preventDefault();
       if (!this.widget) return;
       const shape = this.widget.onCanvasMouseup(e);
+      shape.setOrder(this.shapes.length);
       if (!shape.isShapeless()) this.shapes.push(shape);
       this.stop();
     });
@@ -72,6 +73,7 @@ class App {
       if (!this.widget) return;
       if (!this.isDrawing) return;
       const shape = this.widget.onCanvasMouseout(e);
+      shape.setOrder(this.shapes.length);
       if (!shape.isShapeless()) this.shapes.push(shape);
       this.stop();
     });
@@ -89,9 +91,16 @@ class App {
   select(e: MouseEvent): void {
     this.clear();
     let index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
-    if (index >= 0) index = this.shapes.length - index - 1;
-    this.shapes.forEach((shape, i) => i !== index && shape.draw());
-    if (index >= 0) this.shapes[index].select();
+    if (index < 0) {
+      this.shapes.sort((a: Shape, b: Shape) => a.order - b.order).forEach((shape) => shape.draw());
+      return;
+    }
+    const { length } = this.shapes;
+    index = length - 1 - index;
+    const selected = this.shapes[index];
+    this.shapes.splice(index, 1);
+    this.shapes.push(selected);
+    this.shapes.forEach((shape, i) => i < length - 1 ? shape.draw() : shape.select());
   }
 
   start() {
