@@ -2,6 +2,10 @@ import { WidgetType } from './enums';
 import { WidgetFactory } from './factories';
 import { Drawable } from './widgets';
 import { Shape } from './shapes';
+import {
+  SHAPE_FILL_STYLE,
+  SHAPE_STROKE_STYLE,
+} from './constants';
 import './style.css';
 
 class App {
@@ -42,9 +46,12 @@ class App {
   }
 
   initCanvas() {
+    this.ctx.fillStyle = SHAPE_FILL_STYLE;
+    this.ctx.strokeStyle = SHAPE_STROKE_STYLE;
     this.canvas.addEventListener('click', (e: MouseEvent) => {
       e.preventDefault();
       if (this.widget) return;
+      this.clear();
       this.select(e);
     });
     this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
@@ -57,6 +64,7 @@ class App {
       e.preventDefault();
       if (!this.widget) return;
       if (!this.isDrawing) return;
+      this.clear();
       this.redraw();
       this.widget.onCanvasMousemove(e);
     });
@@ -84,12 +92,10 @@ class App {
   }
 
   redraw(): void {
-    this.clear();
     this.shapes.forEach((shape) => shape.draw());
   }
 
   select(e: MouseEvent): void {
-    this.clear();
     let index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
     if (index < 0) {
       this.shapes.sort((a: Shape, b: Shape) => a.order - b.order).forEach((shape) => shape.draw());
@@ -100,7 +106,8 @@ class App {
     const selected = this.shapes[index];
     this.shapes.splice(index, 1);
     this.shapes.push(selected);
-    this.shapes.forEach((shape, i) => i < length - 1 ? shape.draw() : shape.select());
+    this.redraw();
+    this.shapes[length - 1].select();
   }
 
   start() {

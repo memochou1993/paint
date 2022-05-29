@@ -1,5 +1,10 @@
-import { ANCHOR_WIDTH, ANCHOR_HEIGHT } from '../constants';
 import Shape from './Shape';
+import {
+  ANCHOR_FILL_STYLE,
+  ANCHOR_HEIGHT,
+  ANCHOR_WIDTH,
+  SHAPE_FILL_STYLE,
+} from '../constants';
 
 export default class Rectangle extends Shape {
   width: number;
@@ -27,22 +32,19 @@ export default class Rectangle extends Shape {
   }
 
   draw(): void {
-    this.ctx.fillStyle = '#FFFFFF';
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
     this.ctx.strokeRect(this.x, this.y, this.width, this.height);
   }
 
   select(): void {
-    this.ctx.fillStyle = '#FFFFFF';
-    this.ctx.fillRect(this.x, this.y, this.width, this.height);
-    this.ctx.strokeRect(this.x, this.y, this.width, this.height);
+    this.ctx.fillStyle = ANCHOR_FILL_STYLE;
     this.ctx.beginPath();
     this.ctx.rect(this.x + this.width / 2 - ANCHOR_WIDTH / 2, this.y - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
     this.ctx.rect(this.x + this.width / 2 - ANCHOR_WIDTH / 2, this.y + this.height - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
     this.ctx.rect(this.x - ANCHOR_WIDTH / 2, this.y + this.height / 2 - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
     this.ctx.rect(this.x + this.width - ANCHOR_WIDTH / 2, this.y + this.height / 2 - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
-    this.ctx.fillStyle = '#000000';
     this.ctx.fill();
+    this.ctx.fillStyle = SHAPE_FILL_STYLE;
   }
 
   contains(x: number, y: number): boolean {
