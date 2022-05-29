@@ -1,5 +1,6 @@
 html, body {
   align-items: center;
+  background-color: whitesmoke;
   display: flex;
   height: 100%;
   justify-content: center;
@@ -12,10 +13,17 @@ html, body {
   display: flex;
   flex-direction: column;
 }
+#canvas {
+  background-color: white;
+  border: 1px solid dimgray;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 .widget {
   align-items: center;
-  border: 1px solid black;
-  border-radius: 8px;
+  background-color: ghostwhite;
+  border: 1px solid dimgray;
+  border-radius: 4px;
   box-sizing: border-box;
   cursor: pointer;
   display: flex;
@@ -29,10 +37,5 @@ html, body {
   margin: 0 12px 12px 0;
 }
 .widget.selected {
-  border: 2px solid black;
-}
-#canvas {
-  border: 1px solid black;
-  border-radius: 8px;
-  box-sizing: border-box;
+  border: 2px solid dimgray;
 }
