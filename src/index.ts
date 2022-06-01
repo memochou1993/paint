@@ -83,6 +83,7 @@ class App {
     });
     this.canvas.height = window.innerHeight;
     this.canvas.width = window.innerWidth - (document.getElementById('bar') as HTMLElement).clientWidth;
+    this.ctx.lineWidth = ShapeStyle.LINE_WIDTH;
     this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
     this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
   }

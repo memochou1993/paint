@@ -1,5 +1,9 @@
 import Shape from './Shape';
-import { AnchorStyle, ShapeStyle } from '../constants';
+import {
+  AnchorStyle,
+  OutlineStyle,
+  ShapeStyle,
+} from '../constants';
 
 export default class Rectangle extends Shape {
   width: number;
@@ -32,18 +36,8 @@ export default class Rectangle extends Shape {
   }
 
   select(): void {
-    const { HEIGHT, WIDTH } = AnchorStyle;
-    this.ctx.fillStyle = AnchorStyle.FILL_COLOR;
-    this.ctx.beginPath();
-    this.ctx.rect(this.x + this.width / 2 - WIDTH / 2, this.y - HEIGHT / 2, WIDTH, HEIGHT);
-    this.ctx.rect(this.x + this.width / 2 - WIDTH / 2, this.y + this.height - HEIGHT / 2, WIDTH, HEIGHT);
-    this.ctx.rect(this.x - WIDTH / 2, this.y + this.height / 2 - HEIGHT / 2, WIDTH, HEIGHT);
-    this.ctx.rect(this.x + this.width - WIDTH / 2, this.y + this.height / 2 - HEIGHT / 2, WIDTH, HEIGHT);
-    this.ctx.fill();
-    this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
-    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR_SELECTED;
-    this.ctx.strokeRect(this.x, this.y, this.width, this.height);
-    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
+    this.anchor();
+    this.outline();
   }
 
   contains(x: number, y: number): boolean {
@@ -54,5 +48,25 @@ export default class Rectangle extends Shape {
 
   isShapeless(): boolean {
     return this.width * this.height === 0;
+  }
+
+  private anchor() {
+    this.ctx.fillStyle = AnchorStyle.FILL_COLOR;
+    const { HEIGHT: h, WIDTH: w } = AnchorStyle;
+    this.ctx.beginPath();
+    this.ctx.rect(this.x + this.width / 2 - w / 2, this.y - h / 2, w, h);
+    this.ctx.rect(this.x + this.width / 2 - w / 2, this.y + this.height - h / 2, w, h);
+    this.ctx.rect(this.x - w / 2, this.y + this.height / 2 - h / 2, w, h);
+    this.ctx.rect(this.x + this.width - w / 2, this.y + this.height / 2 - h / 2, w, h);
+    this.ctx.fill();
+    this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
+  }
+
+  private outline(): void {
+    this.ctx.lineWidth = OutlineStyle.LINE_WIDTH;
+    this.ctx.strokeStyle = OutlineStyle.STROKE_COLOR;
+    this.ctx.strokeRect(this.x, this.y, this.width, this.height);
+    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
+    this.ctx.lineWidth = ShapeStyle.LINE_WIDTH;
   }
 }
