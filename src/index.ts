@@ -44,8 +44,6 @@ class App {
   }
 
   private initCanvas() {
-    this.canvas.height = window.innerHeight;
-    this.canvas.width = window.innerWidth - (document.getElementById('bar') as HTMLElement).clientWidth;
     this.canvas.addEventListener('click', async (e: MouseEvent) => {
       e.preventDefault();
       if (!this.widget) return this.redraw();
@@ -72,9 +70,7 @@ class App {
       e.preventDefault();
       if (!this.widget) return;
       const shape = await this.widget.onMouseup(e);
-      if (!shape) return this.setIsDrawing(false);
-      shape.setOrder(this.shapes.length);
-      if (!shape.isShapeless()) this.shapes.push(shape);
+      if (shape && !shape.isShapeless()) this.shapes.push(shape);
       this.setIsDrawing(false);
     });
     this.canvas.addEventListener('mouseout', async (e: MouseEvent) => {
@@ -82,11 +78,11 @@ class App {
       if (!this.widget) return;
       if (!this.isDrawing) return;
       const shape = await this.widget.onMouseout(e);
-      if (!shape) return this.setIsDrawing(false);
-      shape.setOrder(this.shapes.length);
-      if (!shape.isShapeless()) this.shapes.push(shape);
+      if (shape && !shape.isShapeless()) this.shapes.push(shape);
       this.setIsDrawing(false);
     });
+    this.canvas.height = window.innerHeight;
+    this.canvas.width = window.innerWidth - (document.getElementById('bar') as HTMLElement).clientWidth;
     this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
     this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
   }

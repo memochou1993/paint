@@ -5,8 +5,6 @@ export default abstract class Shape {
 
   y: number;
 
-  order: number = -1;
-
   constructor(ctx: CanvasRenderingContext2D, x: number, y: number) {
     this.ctx = ctx;
     this.x = x;
@@ -19,10 +17,6 @@ export default abstract class Shape {
 
   setY(y: number) {
     this.y = y;
-  }
-
-  setOrder(order: number) {
-    this.order = order;
   }
 
   assign(shape: Shape): Shape {
