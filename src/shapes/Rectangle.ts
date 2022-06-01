@@ -1,7 +1,5 @@
 import Shape from './Shape';
-import {
-  AnchorStyle,
-} from '../constants';
+import { AnchorStyle, ShapeStyle } from '../constants';
 
 export default class Rectangle extends Shape {
   width: number;
@@ -42,6 +40,10 @@ export default class Rectangle extends Shape {
     this.ctx.rect(this.x - WIDTH / 2, this.y + this.height / 2 - HEIGHT / 2, WIDTH, HEIGHT);
     this.ctx.rect(this.x + this.width - WIDTH / 2, this.y + this.height / 2 - HEIGHT / 2, WIDTH, HEIGHT);
     this.ctx.fill();
+    this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
+    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR_SELECTED;
+    this.ctx.strokeRect(this.x, this.y, this.width, this.height);
+    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
   }
 
   contains(x: number, y: number): boolean {

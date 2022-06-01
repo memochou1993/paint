@@ -1,7 +1,5 @@
 import Shape from './Shape';
-import {
-  AnchorStyle,
-} from '../constants';
+import { AnchorStyle, ShapeStyle } from '../constants';
 
 export default class Ellipse extends Shape {
   radiusX: number;
@@ -56,6 +54,12 @@ export default class Ellipse extends Shape {
     this.ctx.rect(this.x - this.radiusX - WIDTH / 2, this.y - HEIGHT / 2, WIDTH, HEIGHT);
     this.ctx.rect(this.x + this.radiusX - WIDTH / 2, this.y - HEIGHT / 2, WIDTH, HEIGHT);
     this.ctx.fill();
+    this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
+    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR_SELECTED;
+    this.ctx.beginPath();
+    this.ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, this.rotation, this.startAngle, this.endAngle);
+    this.ctx.stroke();
+    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
   }
 
   contains(x: number, y: number): boolean {

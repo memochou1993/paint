@@ -6,5 +6,7 @@ export const AnchorStyle = Object.freeze({
 
 export const ShapeStyle = Object.freeze({
   FILL_COLOR: 'aliceblue',
-  STROKE_COLOR: 'steelblue',
+  STROKE_COLOR: 'grey',
+  FILL_COLOR_SELECTED: 'aliceblue',
+  STROKE_COLOR_SELECTED: 'steelblue',
 });
