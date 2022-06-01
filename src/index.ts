@@ -46,8 +46,8 @@ class App {
   }
 
   initCanvas() {
-    this.ctx.fillStyle = SHAPE_FILL_STYLE;
-    this.ctx.strokeStyle = SHAPE_STROKE_STYLE;
+    this.canvas.height = window.innerHeight;
+    this.canvas.width = window.innerWidth - (document.getElementById('bar') as HTMLElement).clientWidth;
     this.canvas.addEventListener('click', (e: MouseEvent) => {
       e.preventDefault();
       if (this.widget) return;
@@ -85,6 +85,8 @@ class App {
       if (!shape.isShapeless()) this.shapes.push(shape);
       this.stop();
     });
+    this.ctx.fillStyle = SHAPE_FILL_STYLE;
+    this.ctx.strokeStyle = SHAPE_STROKE_STYLE;
   }
 
   clear(): void {
