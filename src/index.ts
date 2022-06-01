@@ -1,11 +1,8 @@
 import { WidgetType } from './enums';
+import { ShapeStyle } from './constants';
 import { WidgetFactory } from './factories';
 import { Drawable } from './widgets';
 import { Shape } from './shapes';
-import {
-  SHAPE_FILL_STYLE,
-  SHAPE_STROKE_STYLE,
-} from './constants';
 import './style.css';
 
 class App {
@@ -32,7 +29,7 @@ class App {
     this.initCanvas();
   }
 
-  initWidgets() {
+  private initWidgets() {
     this.widgets.forEach((type: string) => {
       const element = document.getElementById(type) as Element;
       const widget = WidgetFactory.create(element, this.ctx) as Drawable;
@@ -40,80 +37,78 @@ class App {
     });
   }
 
-  toggleWidget(widget: Drawable) {
+  private toggleWidget(widget: Drawable) {
     widget.el.classList.add('selected');
     this.widget?.el.classList.remove('selected');
     this.widget = this.widget?.type === widget.type ? null : widget;
   }
 
-  initCanvas() {
+  private initCanvas() {
     this.canvas.height = window.innerHeight;
     this.canvas.width = window.innerWidth - (document.getElementById('bar') as HTMLElement).clientWidth;
-    this.canvas.addEventListener('click', (e: MouseEvent) => {
+    this.canvas.addEventListener('click', async (e: MouseEvent) => {
       e.preventDefault();
       if (!this.widget) return this.redraw();
-      this.widget.onCanvasClick(e)?.then(() => {
+      const res = await this.widget.onClick(e);
+      if (res !== undefined) {
         this.redraw();
         this.select(e);
-      });
+      }
     });
     this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
       e.preventDefault();
       if (!this.widget) return;
-      this.start();
-      this.widget.onCanvasMousedown(e);
+      this.setIsDrawing(true);
+      this.widget.onMousedown(e);
     });
     this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
       e.preventDefault();
       if (!this.widget) return;
       if (!this.isDrawing) return;
       this.redraw();
-      this.widget.onCanvasMousemove(e);
+      this.widget.onMousemove(e);
     });
-    this.canvas.addEventListener('mouseup', (e: MouseEvent) => {
+    this.canvas.addEventListener('mouseup', async (e: MouseEvent) => {
       e.preventDefault();
       if (!this.widget) return;
-      const shape = this.widget.onCanvasMouseup(e);
-      if (!shape) return this.stop();
+      const shape = await this.widget.onMouseup(e);
+      if (!shape) return this.setIsDrawing(false);
       shape.setOrder(this.shapes.length);
       if (!shape.isShapeless()) this.shapes.push(shape);
-      this.stop();
+      this.setIsDrawing(false);
     });
-    this.canvas.addEventListener('mouseout', (e: MouseEvent) => {
+    this.canvas.addEventListener('mouseout', async (e: MouseEvent) => {
       e.preventDefault();
       if (!this.widget) return;
       if (!this.isDrawing) return;
-      const shape = this.widget.onCanvasMouseout(e);
-      if (!shape) return this.stop();
+      const shape = await this.widget.onMouseout(e);
+      if (!shape) return this.setIsDrawing(false);
       shape.setOrder(this.shapes.length);
       if (!shape.isShapeless()) this.shapes.push(shape);
-      this.stop();
+      this.setIsDrawing(false);
     });
-    this.ctx.fillStyle = SHAPE_FILL_STYLE;
-    this.ctx.strokeStyle = SHAPE_STROKE_STYLE;
+    this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
+    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
   }
 
-  clear(): void {
+  private clear(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  redraw(): void {
+  private redraw(): void {
     this.clear();
     this.shapes.forEach((shape) => shape.draw());
   }
 
-  select(e: MouseEvent): void {
+  private select(e: MouseEvent): void {
     const index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
     if (index < 0) return;
     this.shapes[this.shapes.length - index - 1].select();
+    this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
   }
 
-  start() {
-    this.isDrawing = true;
-  }
-
-  stop() {
-    this.isDrawing = false;
+  private setIsDrawing(isDrawing: boolean) {
+    this.isDrawing = isDrawing;
   }
 }
 

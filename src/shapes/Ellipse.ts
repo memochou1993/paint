@@ -1,9 +1,6 @@
 import Shape from './Shape';
 import {
-  ANCHOR_FILL_STYLE,
-  ANCHOR_HEIGHT,
-  ANCHOR_WIDTH,
-  SHAPE_FILL_STYLE,
+  AnchorStyle,
 } from '../constants';
 
 export default class Ellipse extends Shape {
@@ -50,15 +47,15 @@ export default class Ellipse extends Shape {
     this.ctx.stroke();
   }
 
-  select(): void {    
-    this.ctx.fillStyle = ANCHOR_FILL_STYLE;
+  select(): void {
+    const { HEIGHT, WIDTH } = AnchorStyle;
+    this.ctx.fillStyle = AnchorStyle.FILL_COLOR;
     this.ctx.beginPath();
-    this.ctx.rect(this.x - ANCHOR_WIDTH / 2, this.y - this.radiusY - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
-    this.ctx.rect(this.x - ANCHOR_WIDTH / 2, this.y + this.radiusY - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
-    this.ctx.rect(this.x - this.radiusX - ANCHOR_WIDTH / 2, this.y - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
-    this.ctx.rect(this.x + this.radiusX - ANCHOR_WIDTH / 2, this.y - ANCHOR_HEIGHT / 2, ANCHOR_WIDTH, ANCHOR_HEIGHT);
+    this.ctx.rect(this.x - WIDTH / 2, this.y - this.radiusY - HEIGHT / 2, WIDTH, HEIGHT);
+    this.ctx.rect(this.x - WIDTH / 2, this.y + this.radiusY - HEIGHT / 2, WIDTH, HEIGHT);
+    this.ctx.rect(this.x - this.radiusX - WIDTH / 2, this.y - HEIGHT / 2, WIDTH, HEIGHT);
+    this.ctx.rect(this.x + this.radiusX - WIDTH / 2, this.y - HEIGHT / 2, WIDTH, HEIGHT);
     this.ctx.fill();
-    this.ctx.fillStyle = SHAPE_FILL_STYLE;
   }
 
   contains(x: number, y: number): boolean {

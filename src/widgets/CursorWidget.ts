@@ -4,15 +4,15 @@ import { WidgetType } from '../enums';
 export default class CursorWidget extends Widget {
   readonly type = WidgetType.CURSOR;
 
-  onCanvasClick(): Promise<void> {
-    return new Promise<void>((res) => res());
+  onClick(): Promise<null> {
+    return new Promise((res) => res(null));
   }
 
-  onCanvasMousedown(): void {}
+  onMousedown(): void {}
 
-  onCanvasMousemove(): void {}
+  onMousemove(): void {}
 
-  onCanvasMouseup(): void {}
+  onMouseup(): void {}
 
-  onCanvasMouseout(): void {}
+  onMouseout(): void {}
 }

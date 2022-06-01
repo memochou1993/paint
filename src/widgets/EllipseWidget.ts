@@ -7,25 +7,25 @@ export default class EllipseWidget extends Widget {
 
   private shape: Ellipse = new Ellipse(this.ctx);
 
-  onCanvasClick(): void {}
+  onClick(): void {}
 
-  onCanvasMousedown(e: MouseEvent): void {
+  onMousedown(e: MouseEvent): void {
     this.shape = new Ellipse(this.ctx);
     this.shape.setX(e.offsetX);
     this.shape.setY(e.offsetY);
   }
 
-  onCanvasMousemove(e: MouseEvent): void {
+  onMousemove(e: MouseEvent): void {
     this.shape.setRadiusX(Math.abs(e.offsetX - this.shape.x) * Math.sqrt(2));
     this.shape.setRadiusY(Math.abs(e.offsetY - this.shape.y) * Math.sqrt(2));
     this.shape.draw();
   }
 
-  onCanvasMouseup(): Shape {
-    return new Ellipse(this.ctx).assign(this.shape);
+  onMouseup(): Promise<Shape> {
+    return new Promise((res) => res(new Ellipse(this.ctx).assign(this.shape)));
   }
 
-  onCanvasMouseout(): Shape {
-    return new Ellipse(this.ctx).assign(this.shape);
+  onMouseout(): Promise<Shape> {
+    return new Promise((res) => res(new Ellipse(this.ctx).assign(this.shape)));
   }
 }

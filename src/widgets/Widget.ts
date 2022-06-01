@@ -3,24 +3,24 @@ import { Drawable } from './Drawable';
 import { Shape } from '../shapes';
 
 export default abstract class Widget implements Drawable {
-  abstract readonly type: WidgetType;
-
   readonly el: Element;
-
+  
   readonly ctx: CanvasRenderingContext2D;
+  
+  abstract readonly type: WidgetType;
 
   constructor(el: Element, ctx: CanvasRenderingContext2D) {
     this.el = el;
     this.ctx = ctx;
   }
 
-  abstract onCanvasClick(e: MouseEvent): Promise<void> | void;
+  abstract onClick(e: MouseEvent): Promise<Shape | null> | void;
 
-  abstract onCanvasMousedown(e: MouseEvent): void;
+  abstract onMousedown(e: MouseEvent): Promise<Shape | null> | void;
 
-  abstract onCanvasMousemove(e: MouseEvent): void;
+  abstract onMousemove(e: MouseEvent): Promise<Shape | null> | void;
 
-  abstract onCanvasMouseup(e: MouseEvent): Shape | void; // TODO: use Promise
+  abstract onMouseup(e: MouseEvent): Promise<Shape | null> | void;
 
-  abstract onCanvasMouseout(e: MouseEvent): Shape | void; // TODO: use Promise
+  abstract onMouseout(e: MouseEvent): Promise<Shape | null> | void;
 }

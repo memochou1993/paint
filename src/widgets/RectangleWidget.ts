@@ -7,25 +7,25 @@ export default class RectangleWidget extends Widget {
 
   private shape: Rectangle = new Rectangle(this.ctx);
 
-  onCanvasClick(): void {}
+  onClick(): void {}
 
-  onCanvasMousedown(e: MouseEvent): void {
+  onMousedown(e: MouseEvent): void {
     this.shape = new Rectangle(this.ctx);
     this.shape.setX(e.offsetX);
     this.shape.setY(e.offsetY);
   }
 
-  onCanvasMousemove(e: MouseEvent): void {
+  onMousemove(e: MouseEvent): void {
     this.shape.setWidth(e.offsetX - this.shape.x);
     this.shape.setHeight(e.offsetY - this.shape.y);
     this.shape.draw();
   }
 
-  onCanvasMouseup(): Shape {
-    return new Rectangle(this.ctx).assign(this.shape);
+  onMouseup(): Promise<Shape> {
+    return new Promise((res) => res(new Rectangle(this.ctx).assign(this.shape)));
   }
 
-  onCanvasMouseout(): Shape {
-    return new Rectangle(this.ctx).assign(this.shape);
+  onMouseout(): Promise<Shape> {
+    return new Promise((res) => res(new Rectangle(this.ctx).assign(this.shape)));
   }
 }

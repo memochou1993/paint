@@ -1,14 +1,14 @@
 import { Shape } from '../shapes';
 
 interface Drawable {
-  type: string;
   el: Element;
   ctx: CanvasRenderingContext2D;
-  onCanvasClick(e: MouseEvent): Promise<void> | void;
-  onCanvasMousedown(e: MouseEvent): void;
-  onCanvasMousemove(e: MouseEvent): void;
-  onCanvasMouseup(e: MouseEvent): Shape | void;
-  onCanvasMouseout(e: MouseEvent): Shape | void;
+  type: string;
+  onClick(e: MouseEvent): Promise<Shape | null> | void;
+  onMousedown(e: MouseEvent): Promise<Shape | null> | void;
+  onMousemove(e: MouseEvent): Promise<Shape | null> | void;
+  onMouseup(e: MouseEvent): Promise<Shape | null> | void;
+  onMouseout(e: MouseEvent): Promise<Shape | null> | void;
 }
 
 export type { Drawable };
