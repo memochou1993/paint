@@ -7,6 +7,8 @@ export default class RectangleWidget extends Widget {
 
   private shape: Rectangle = new Rectangle(this.ctx);
 
+  onCanvasClick(): void {}
+
   onCanvasMousedown(e: MouseEvent): void {
     this.shape = new Rectangle(this.ctx);
     this.shape.setX(e.offsetX);

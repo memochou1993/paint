@@ -7,6 +7,8 @@ export default class EllipseWidget extends Widget {
 
   private shape: Ellipse = new Ellipse(this.ctx);
 
+  onCanvasClick(): void {}
+
   onCanvasMousedown(e: MouseEvent): void {
     this.shape = new Ellipse(this.ctx);
     this.shape.setX(e.offsetX);

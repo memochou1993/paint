@@ -14,6 +14,7 @@ class App {
   private ctx: CanvasRenderingContext2D;
 
   private widgets: Array<WidgetType> = [
+    WidgetType.CURSOR,
     WidgetType.RECTANGLE,
     WidgetType.ELLIPSE,
   ];
@@ -50,9 +51,11 @@ class App {
     this.canvas.width = window.innerWidth - (document.getElementById('bar') as HTMLElement).clientWidth;
     this.canvas.addEventListener('click', (e: MouseEvent) => {
       e.preventDefault();
-      if (this.widget) return;
-      this.clear();
-      this.select(e);
+      if (!this.widget) return this.redraw();
+      this.widget.onCanvasClick(e)?.then(() => {
+        this.redraw();
+        this.select(e);
+      });
     });
     this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
       e.preventDefault();
@@ -64,7 +67,6 @@ class App {
       e.preventDefault();
       if (!this.widget) return;
       if (!this.isDrawing) return;
-      this.clear();
       this.redraw();
       this.widget.onCanvasMousemove(e);
     });
@@ -72,6 +74,7 @@ class App {
       e.preventDefault();
       if (!this.widget) return;
       const shape = this.widget.onCanvasMouseup(e);
+      if (!shape) return this.stop();
       shape.setOrder(this.shapes.length);
       if (!shape.isShapeless()) this.shapes.push(shape);
       this.stop();
@@ -81,6 +84,7 @@ class App {
       if (!this.widget) return;
       if (!this.isDrawing) return;
       const shape = this.widget.onCanvasMouseout(e);
+      if (!shape) return this.stop();
       shape.setOrder(this.shapes.length);
       if (!shape.isShapeless()) this.shapes.push(shape);
       this.stop();
@@ -94,22 +98,14 @@ class App {
   }
 
   redraw(): void {
+    this.clear();
     this.shapes.forEach((shape) => shape.draw());
   }
 
   select(e: MouseEvent): void {
-    let index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
-    if (index < 0) {
-      this.shapes.sort((a: Shape, b: Shape) => a.order - b.order).forEach((shape) => shape.draw());
-      return;
-    }
-    const { length } = this.shapes;
-    index = length - 1 - index;
-    const selected = this.shapes[index];
-    this.shapes.splice(index, 1);
-    this.shapes.push(selected);
-    this.redraw();
-    this.shapes[length - 1].select();
+    const index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
+    if (index < 0) return;
+    this.shapes[this.shapes.length - index - 1].select();
   }
 
   start() {

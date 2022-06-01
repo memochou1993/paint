@@ -14,11 +14,13 @@ export default abstract class Widget implements Drawable {
     this.ctx = ctx;
   }
 
+  abstract onCanvasClick(e: MouseEvent): Promise<void> | void;
+
   abstract onCanvasMousedown(e: MouseEvent): void;
 
   abstract onCanvasMousemove(e: MouseEvent): void;
 
-  abstract onCanvasMouseup(e: MouseEvent): Shape;
+  abstract onCanvasMouseup(e: MouseEvent): Shape | void; // TODO: use Promise
 
-  abstract onCanvasMouseout(e: MouseEvent): Shape;
+  abstract onCanvasMouseout(e: MouseEvent): Shape | void; // TODO: use Promise
 }
