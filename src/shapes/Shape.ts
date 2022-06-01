@@ -19,10 +19,6 @@ export default abstract class Shape {
     this.y = y;
   }
 
-  assign(shape: Shape): Shape {
-    return Object.assign(this, shape);
-  }
-
   abstract draw(): void;
   
   abstract select(): void;

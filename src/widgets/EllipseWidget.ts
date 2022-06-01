@@ -22,10 +22,10 @@ export default class EllipseWidget extends Widget {
   }
 
   onMouseup(): Promise<Shape> {
-    return new Promise((res) => res(new Ellipse(this.ctx).assign(this.shape)));
+    return new Promise((res) => res(this.shape));
   }
 
   onMouseout(): Promise<Shape> {
-    return new Promise((res) => res(new Ellipse(this.ctx).assign(this.shape)));
+    return new Promise((res) => res(this.shape));
   }
 }
