@@ -2,6 +2,7 @@ import Widget from './Widget';
 
 export default class CursorWidget extends Widget {
   click(e: MouseEvent): void {
+    this.clear();
     this.redraw();
     const index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
     if (index < 0) return;
