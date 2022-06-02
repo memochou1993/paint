@@ -31,6 +31,9 @@ export default class Rectangle extends Shape {
   }
 
   draw(): void {
+    this.ctx.lineWidth = ShapeStyle.LINE_WIDTH;
+    this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
+    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
     this.ctx.strokeRect(this.x, this.y, this.width, this.height);
   }

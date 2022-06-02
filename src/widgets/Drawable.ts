@@ -1,5 +1,5 @@
 interface Drawable {
-  readonly el: Element;
+  readonly element: Element;
   click(e: MouseEvent): void;
   mouseDown(e: MouseEvent): void;
   mouseMove(e: MouseEvent): void;

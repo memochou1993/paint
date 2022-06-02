@@ -8,14 +8,14 @@ import {
 } from '../widgets';
 
 export default class WidgetFactory {
-  static create(el: Element, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, shapes: Array<Shape>): Drawable | null {
-    switch (el.id) {
+  static create(element: Element, canvas: HTMLCanvasElement, shapes: Array<Shape>): Drawable | null {
+    switch (element.id) {
       case WidgetType.Cursor:
-        return new CursorWidget(el, canvas, ctx, shapes);
+        return new CursorWidget(element, canvas, shapes);
       case WidgetType.Rectangle:
-        return new RectangleWidget(el, canvas, ctx, shapes);
+        return new RectangleWidget(element, canvas, shapes);
       case WidgetType.Ellipse:
-        return new EllipseWidget(el, canvas, ctx, shapes);
+        return new EllipseWidget(element, canvas, shapes);
       default:
         return null;
     }

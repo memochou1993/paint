@@ -2,23 +2,18 @@ import { Drawable } from './Drawable';
 import { Shape } from '../shapes';
 
 export default abstract class Widget implements Drawable {
-  readonly el: Element;
+  readonly element: Element;
 
   readonly canvas: HTMLCanvasElement;
   
   readonly ctx: CanvasRenderingContext2D;
   
   readonly shapes: Array<Shape>;
-  
-  constructor(
-    el: Element,
-    canvas: HTMLCanvasElement,
-    ctx: CanvasRenderingContext2D,
-    shapes: Array<Shape>,
-  ) {
-    this.el = el;
+
+  constructor(el: Element, canvas: HTMLCanvasElement, shapes: Array<Shape>) {
+    this.element = el;
     this.canvas = canvas;
-    this.ctx = ctx;
+    this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     this.shapes = shapes;
   }
 

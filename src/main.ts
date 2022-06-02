@@ -1,5 +1,3 @@
-import { WidgetType } from './enums';
-import { ShapeStyle } from './constants';
 import { WidgetFactory } from './factories';
 import { Drawable } from './widgets';
 import { Shape } from './shapes';
@@ -8,37 +6,26 @@ import './style.css';
 class App {
   private canvas: HTMLCanvasElement;
   
-  private ctx: CanvasRenderingContext2D;
-
-  private widgets: Array<WidgetType> = [
-    WidgetType.Cursor,
-    WidgetType.Rectangle,
-    WidgetType.Ellipse,
-  ];
+  private shapes: Array<Shape> = [];
 
   private widget: Drawable | null = null;
 
-  private shapes: Array<Shape> = [];
-
   constructor() {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
-    this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     this.initWidgets();
     this.initCanvas();
   }
 
   private initWidgets(): void {
-    this.widgets.forEach((type: string) => {
-      const el = document.getElementById(type) as Element;
-      const widget = WidgetFactory.create(el, this.canvas, this.ctx, this.shapes) as Drawable;
-      el.addEventListener('click', () => this.toggleWidget(widget));
+    const elements = document.getElementsByClassName('widget');
+    Array.from(elements).forEach((element: Element) => {
+      const widget = WidgetFactory.create(element, this.canvas, this.shapes) as Drawable;
+      element.addEventListener('click', () => {
+        this.widget?.element.classList.remove('selected');
+        this.widget = this.widget?.element.id === widget.element.id ? null : widget;
+        this.widget?.element.classList.add('selected');
+      });
     });
-  }
-
-  private toggleWidget(widget: Drawable): void {
-    this.widget?.el.classList.remove('selected');
-    this.widget = this.widget?.el.id === widget.el.id ? null : widget;
-    this.widget?.el.classList.add('selected');
   }
 
   private initCanvas(): void {
@@ -64,9 +51,6 @@ class App {
     });
     this.canvas.height = window.innerHeight;
     this.canvas.width = window.innerWidth - (document.getElementById('bar') as HTMLElement).clientWidth;
-    this.ctx.lineWidth = ShapeStyle.LINE_WIDTH;
-    this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
-    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
   }
 }
 

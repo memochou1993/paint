@@ -43,6 +43,9 @@ export default class Ellipse extends Shape {
   }
 
   draw(): void {
+    this.ctx.lineWidth = ShapeStyle.LINE_WIDTH;
+    this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
+    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
     this.ctx.beginPath();
     this.ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, this.rotation, this.startAngle, this.endAngle);
     this.ctx.fill();
