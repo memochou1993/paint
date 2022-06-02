@@ -2,9 +2,7 @@ import Widget from './Widget';
 import { Ellipse } from '../shapes';
 
 export default class EllipseWidget extends Widget {
-  private shape: Ellipse = new Ellipse(this.ctx);
-
-  private isDrawing = false;
+  private shape: Ellipse | null = null;
 
   private startX = 0;
 
@@ -13,14 +11,13 @@ export default class EllipseWidget extends Widget {
   click(): void {}
 
   mouseDown(e: MouseEvent): void {
-    this.isDrawing = true;
     this.shape = new Ellipse(this.ctx);
     this.startX = e.offsetX;
     this.startY = e.offsetY;
   }
 
   mouseMove(e: MouseEvent): void {
-    if (!this.isDrawing) return;
+    if (!this.shape) return;
     this.clear();
     this.redraw();
     const offsetX = (e.offsetX - this.startX) / 2;
@@ -33,12 +30,14 @@ export default class EllipseWidget extends Widget {
   }
 
   mouseUp(): void {
-    this.isDrawing = false;
+    if (!this.shape) return;
     this.shapes.push(this.shape);
+    this.shape = null;
   }
 
   mouseOut(): void {
-    this.isDrawing = false;
+    if (!this.shape) return;
     this.shapes.push(this.shape);
+    this.shape = null;
   }
 }
