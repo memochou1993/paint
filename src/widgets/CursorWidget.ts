@@ -23,10 +23,10 @@ export default class CursorWidget extends Widget {
 
   mouseMove(e: MouseEvent): void {
     if (!this.shape) return;
-    this.clear();
-    this.redraw();
     this.shape.setX(e.offsetX - this.offsetX);
     this.shape.setY(e.offsetY - this.offsetY);
+    this.clear();
+    this.redraw();
     this.shape.select();
   }
 
