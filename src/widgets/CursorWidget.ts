@@ -2,7 +2,7 @@ import Widget from './Widget';
 import { WidgetType } from '../enums';
 
 export default class CursorWidget extends Widget {
-  readonly type = WidgetType.CURSOR;
+  readonly type = WidgetType.Cursor;
 
   onClick(): Promise<null> {
     return new Promise((res) => res(null));

@@ -1,5 +1,5 @@
 export enum WidgetType {
-  CURSOR = 'cursor',
-  ELLIPSE = 'ellipse',
-  RECTANGLE = 'rectangle',
+  Cursor = 'cursor',
+  Ellipse = 'ellipse',
+  Rectangle = 'rectangle',
 }

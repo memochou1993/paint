@@ -3,7 +3,7 @@ import { WidgetType } from '../enums';
 import { Shape, Ellipse } from '../shapes';
 
 export default class EllipseWidget extends Widget {
-  readonly type = WidgetType.ELLIPSE;
+  readonly type = WidgetType.Ellipse;
 
   private shape: Ellipse = new Ellipse(this.ctx);
 

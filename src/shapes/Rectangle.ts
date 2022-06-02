@@ -50,7 +50,7 @@ export default class Rectangle extends Shape {
     return this.width * this.height === 0;
   }
 
-  private anchor() {
+  private anchor(): void {
     this.ctx.fillStyle = AnchorStyle.FILL_COLOR;
     const { HEIGHT: h, WIDTH: w } = AnchorStyle;
     this.ctx.beginPath();

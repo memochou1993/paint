@@ -2,7 +2,6 @@ import { Shape } from '../shapes';
 
 interface Drawable {
   el: Element;
-  ctx: CanvasRenderingContext2D;
   type: string;
   onClick(e: MouseEvent): Promise<Shape | null> | void;
   onMousedown(e: MouseEvent): Promise<Shape | null> | void;

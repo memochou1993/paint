@@ -3,7 +3,7 @@ import { WidgetType } from '../enums';
 import { Shape, Rectangle } from '../shapes';
 
 export default class RectangleWidget extends Widget {
-  readonly type = WidgetType.RECTANGLE;
+  readonly type = WidgetType.Rectangle;
 
   private shape: Rectangle = new Rectangle(this.ctx);
 

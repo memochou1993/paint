@@ -11,9 +11,9 @@ class App {
   private ctx: CanvasRenderingContext2D;
 
   private widgets: Array<WidgetType> = [
-    WidgetType.CURSOR,
-    WidgetType.RECTANGLE,
-    WidgetType.ELLIPSE,
+    WidgetType.Cursor,
+    WidgetType.Rectangle,
+    WidgetType.Ellipse,
   ];
 
   private widget: Drawable | null = null;

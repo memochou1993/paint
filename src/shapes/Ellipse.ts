@@ -64,7 +64,7 @@ export default class Ellipse extends Shape {
     return this.radiusX * this.radiusY === 0;
   }
 
-  private anchor() {
+  private anchor(): void {
     this.ctx.fillStyle = AnchorStyle.FILL_COLOR;
     const { HEIGHT: h, WIDTH: w } = AnchorStyle;
     this.ctx.beginPath();
