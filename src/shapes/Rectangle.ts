@@ -22,11 +22,11 @@ export default class Rectangle extends Shape {
     this.height = height;
   }
 
-  setWidth(width: number) {
+  setWidth(width: number): void {
     this.width = width;
   }
 
-  setHeight(height: number) {
+  setHeight(height: number): void {
     this.height = height;
   }
 

@@ -6,16 +6,16 @@ export default class RectangleWidget extends Widget {
 
   private isDrawing = false;
 
-  onClick(): void {}
+  click(): void {}
 
-  onMousedown(e: MouseEvent): void {
+  mouseDown(e: MouseEvent): void {
     this.isDrawing = true;
     this.shape = new Rectangle(this.ctx);
     this.shape.setX(e.offsetX);
     this.shape.setY(e.offsetY);
   }
 
-  onMousemove(e: MouseEvent): void {
+  mouseMove(e: MouseEvent): void {
     if (!this.isDrawing) return;
     this.clear();
     this.redraw();
@@ -24,12 +24,12 @@ export default class RectangleWidget extends Widget {
     this.shape.draw();
   }
 
-  onMouseup(): void {
+  mouseUp(): void {
     this.isDrawing = false;
     this.shapes.push(this.shape);
   }
 
-  onMouseout(): void {
+  mouseOut(): void {
     this.isDrawing = false;
     this.shapes.push(this.shape);
   }

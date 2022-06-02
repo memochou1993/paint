@@ -11,11 +11,11 @@ export default abstract class Shape {
     this.y = y;
   }
 
-  setX(x: number) {
+  setX(x: number): void {
     this.x = x;
   }
 
-  setY(y: number) {
+  setY(y: number): void {
     this.y = y;
   }
 

@@ -10,7 +10,12 @@ export default abstract class Widget implements Drawable {
   
   readonly shapes: Array<Shape>;
   
-  constructor(el: Element, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, shapes: Array<Shape>) {
+  constructor(
+    el: Element,
+    canvas: HTMLCanvasElement,
+    ctx: CanvasRenderingContext2D,
+    shapes: Array<Shape>,
+  ) {
     this.el = el;
     this.canvas = canvas;
     this.ctx = ctx;
@@ -25,13 +30,13 @@ export default abstract class Widget implements Drawable {
     this.shapes.forEach((shape) => shape.draw());
   }
 
-  abstract onClick(e: MouseEvent): void;
+  abstract click(e: MouseEvent): void;
 
-  abstract onMousedown(e: MouseEvent): void;
+  abstract mouseDown(e: MouseEvent): void;
 
-  abstract onMousemove(e: MouseEvent): void;
+  abstract mouseMove(e: MouseEvent): void;
 
-  abstract onMouseup(e: MouseEvent): void;
+  abstract mouseUp(e: MouseEvent): void;
 
-  abstract onMouseout(e: MouseEvent): void;
+  abstract mouseOut(e: MouseEvent): void;
 }

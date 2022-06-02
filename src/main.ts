@@ -27,7 +27,7 @@ class App {
     this.initCanvas();
   }
 
-  private initWidgets() {
+  private initWidgets(): void {
     this.widgets.forEach((type: string) => {
       const el = document.getElementById(type) as Element;
       const widget = WidgetFactory.create(el, this.canvas, this.ctx, this.shapes) as Drawable;
@@ -35,32 +35,32 @@ class App {
     });
   }
 
-  private toggleWidget(widget: Drawable) {
-    widget.el.classList.add('selected');
+  private toggleWidget(widget: Drawable): void {
     this.widget?.el.classList.remove('selected');
     this.widget = this.widget?.el.id === widget.el.id ? null : widget;
+    this.widget?.el.classList.add('selected');
   }
 
-  private initCanvas() {
+  private initCanvas(): void {
     this.canvas.addEventListener('click', async (e: MouseEvent) => {
       e.preventDefault();
-      this.widget?.onClick(e);
+      this.widget?.click(e);
     });
     this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
       e.preventDefault();
-      this.widget?.onMousedown(e);
+      this.widget?.mouseDown(e);
     });
     this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
       e.preventDefault();
-      this.widget?.onMousemove(e);
+      this.widget?.mouseMove(e);
     });
     this.canvas.addEventListener('mouseup', async (e: MouseEvent) => {
       e.preventDefault();
-      this.widget?.onMouseup(e);
+      this.widget?.mouseUp(e);
     });
     this.canvas.addEventListener('mouseout', async (e: MouseEvent) => {
       e.preventDefault();
-      this.widget?.onMouseout(e);
+      this.widget?.mouseOut(e);
     });
     this.canvas.height = window.innerHeight;
     this.canvas.width = window.innerWidth - (document.getElementById('bar') as HTMLElement).clientWidth;

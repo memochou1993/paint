@@ -1,12 +1,10 @@
-import { Shape } from '../shapes';
-
 interface Drawable {
   readonly el: Element;
-  onClick(e: MouseEvent): Promise<Shape | null> | void;
-  onMousedown(e: MouseEvent): Promise<Shape | null> | void;
-  onMousemove(e: MouseEvent): Promise<Shape | null> | void;
-  onMouseup(e: MouseEvent): Promise<Shape | null> | void;
-  onMouseout(e: MouseEvent): Promise<Shape | null> | void;
+  click(e: MouseEvent): void;
+  mouseDown(e: MouseEvent): void;
+  mouseMove(e: MouseEvent): void;
+  mouseUp(e: MouseEvent): void;
+  mouseOut(e: MouseEvent): void;
 }
 
 export type { Drawable };

@@ -34,11 +34,11 @@ export default class Ellipse extends Shape {
     this.endAngle = endAngle;
   }
 
-  setRadiusX(radiusX: number) {
+  setRadiusX(radiusX: number): void {
     this.radiusX = radiusX;
   }
 
-  setRadiusY(radiusY: number) {
+  setRadiusY(radiusY: number): void {
     this.radiusY = radiusY;
   }
 
