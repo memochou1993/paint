@@ -44,13 +44,7 @@ class App {
   private initCanvas() {
     this.canvas.addEventListener('click', async (e: MouseEvent) => {
       e.preventDefault();
-      if (!this.widget) return this.redraw();
-      // FIXME
-      const res = await this.widget.onClick(e);
-      if (res !== undefined) {
-        this.redraw();
-        this.select(e);
-      }
+      this.widget?.onClick(e);
     });
     this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
       e.preventDefault();
@@ -73,21 +67,6 @@ class App {
     this.ctx.lineWidth = ShapeStyle.LINE_WIDTH;
     this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
     this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
-  }
-
-  private clear(): void {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  }
-
-  private redraw(): void {
-    this.clear();
-    this.shapes.forEach((shape) => shape.draw());
-  }
-
-  private select(e: MouseEvent): void {
-    const index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
-    if (index < 0) return;
-    this.shapes[this.shapes.length - index - 1].select();
   }
 }
 

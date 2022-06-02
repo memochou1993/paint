@@ -4,8 +4,11 @@ import { WidgetType } from '../enums';
 export default class CursorWidget extends Widget {
   readonly type = WidgetType.Cursor;
 
-  onClick(): Promise<null> {
-    return new Promise((res) => res(null));
+  onClick(e: MouseEvent): void {
+    this.redraw();
+    const index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
+    if (index < 0) return;
+    this.shapes[this.shapes.length - index - 1].select();
   }
 
   onMousedown(): void {}

@@ -1,8 +1,8 @@
 import { Shape } from '../shapes';
 
 interface Drawable {
-  el: Element;
-  type: string;
+  readonly el: Element;
+  readonly type: string;
   onClick(e: MouseEvent): Promise<Shape | null> | void;
   onMousedown(e: MouseEvent): Promise<Shape | null> | void;
   onMousemove(e: MouseEvent): Promise<Shape | null> | void;

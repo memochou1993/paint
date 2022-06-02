@@ -28,13 +28,13 @@ export default abstract class Widget implements Drawable {
     this.shapes.forEach((shape) => shape.draw());
   }
 
-  abstract onClick(e: MouseEvent): Promise<Shape | null> | void;
+  abstract onClick(e: MouseEvent): void;
 
-  abstract onMousedown(e: MouseEvent): Promise<Shape | null> | void;
+  abstract onMousedown(e: MouseEvent): void;
 
-  abstract onMousemove(e: MouseEvent): Promise<Shape | null> | void;
+  abstract onMousemove(e: MouseEvent): void;
 
-  abstract onMouseup(e: MouseEvent): Promise<Shape | null> | void;
+  abstract onMouseup(e: MouseEvent): void;
 
-  abstract onMouseout(e: MouseEvent): Promise<Shape | null> | void;
+  abstract onMouseout(e: MouseEvent): void;
 }
