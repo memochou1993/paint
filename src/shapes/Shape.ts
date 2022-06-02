@@ -5,6 +5,10 @@ export default abstract class Shape {
 
   y: number;
 
+  offsetX: number = 0;
+
+  offsetY: number = 0;
+
   constructor(ctx: CanvasRenderingContext2D, x: number, y: number) {
     this.ctx = ctx;
     this.x = x;
@@ -17,6 +21,14 @@ export default abstract class Shape {
 
   setY(y: number): void {
     this.y = y;
+  }
+
+  setOffsetX(offsetX: number): void {
+    this.offsetX = offsetX;
+  }
+
+  setOffsetY(offsetY: number): void {
+    this.offsetY = offsetY;
   }
 
   abstract draw(): void;

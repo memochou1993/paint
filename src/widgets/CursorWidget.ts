@@ -3,10 +3,6 @@ import { Shape } from '../shapes';
 
 export default class CursorWidget extends Widget {
   private shape: Shape | null = null;
-  
-  private offsetX = 0;
-  
-  private offsetY = 0;
 
   click(): void {}
 
@@ -16,15 +12,15 @@ export default class CursorWidget extends Widget {
     const index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
     if (index < 0) return;
     this.shape = this.shapes[this.shapes.length - index - 1];
-    this.offsetX = e.offsetX - this.shape.x;
-    this.offsetY = e.offsetY - this.shape.y;
+    this.shape.setOffsetX(e.offsetX - this.shape.x);
+    this.shape.setOffsetY(e.offsetY - this.shape.y);
     this.shape.select();
   }
 
   mouseMove(e: MouseEvent): void {
     if (!this.shape) return;
-    this.shape.setX(e.offsetX - this.offsetX);
-    this.shape.setY(e.offsetY - this.offsetY);
+    this.shape.setX(e.offsetX - this.shape.offsetX);
+    this.shape.setY(e.offsetY - this.shape.offsetY);
     this.clear();
     this.redraw();
     this.shape.select();
