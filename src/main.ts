@@ -20,8 +20,6 @@ class App {
 
   private shapes: Array<Shape> = [];
 
-  private isDrawing = false;
-
   constructor() {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
@@ -32,7 +30,7 @@ class App {
   private initWidgets() {
     this.widgets.forEach((type: string) => {
       const element = document.getElementById(type) as Element;
-      const widget = WidgetFactory.create(element, this.ctx) as Drawable;
+      const widget = WidgetFactory.create(element, this.canvas, this.ctx, this.shapes) as Drawable;
       element.addEventListener('click', () => this.toggleWidget(widget));
     });
   }
@@ -47,6 +45,7 @@ class App {
     this.canvas.addEventListener('click', async (e: MouseEvent) => {
       e.preventDefault();
       if (!this.widget) return this.redraw();
+      // FIXME
       const res = await this.widget.onClick(e);
       if (res !== undefined) {
         this.redraw();
@@ -55,31 +54,19 @@ class App {
     });
     this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
       e.preventDefault();
-      if (!this.widget) return;
-      this.setIsDrawing(true);
-      this.widget.onMousedown(e);
+      this.widget?.onMousedown(e);
     });
     this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
       e.preventDefault();
-      if (!this.widget) return;
-      if (!this.isDrawing) return;
-      this.redraw();
-      this.widget.onMousemove(e);
+      this.widget?.onMousemove(e);
     });
     this.canvas.addEventListener('mouseup', async (e: MouseEvent) => {
       e.preventDefault();
-      if (!this.widget) return;
-      const shape = await this.widget.onMouseup(e);
-      if (shape && !shape.isShapeless()) this.shapes.push(shape);
-      this.setIsDrawing(false);
+      this.widget?.onMouseup(e);
     });
     this.canvas.addEventListener('mouseout', async (e: MouseEvent) => {
       e.preventDefault();
-      if (!this.widget) return;
-      if (!this.isDrawing) return;
-      const shape = await this.widget.onMouseout(e);
-      if (shape && !shape.isShapeless()) this.shapes.push(shape);
-      this.setIsDrawing(false);
+      this.widget?.onMouseout(e);
     });
     this.canvas.height = window.innerHeight;
     this.canvas.width = window.innerWidth - (document.getElementById('bar') as HTMLElement).clientWidth;
@@ -101,10 +88,6 @@ class App {
     const index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
     if (index < 0) return;
     this.shapes[this.shapes.length - index - 1].select();
-  }
-
-  private setIsDrawing(isDrawing: boolean) {
-    this.isDrawing = isDrawing;
   }
 }
 
