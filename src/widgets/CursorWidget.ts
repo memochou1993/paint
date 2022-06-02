@@ -1,19 +1,40 @@
 import Widget from './Widget';
+import { Shape } from '../shapes';
 
 export default class CursorWidget extends Widget {
-  click(e: MouseEvent): void {
+  private shape: Shape | null = null;
+  
+  private offsetX = 0;
+  
+  private offsetY = 0;
+
+  click(): void {}
+
+  mouseDown(e: MouseEvent): void {
     this.clear();
     this.redraw();
     const index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
     if (index < 0) return;
-    this.shapes[this.shapes.length - index - 1].select();
+    this.shape = this.shapes[this.shapes.length - index - 1];
+    this.offsetX = e.offsetX - this.shape.x;
+    this.offsetY = e.offsetY - this.shape.y;
+    this.shape.select();
   }
 
-  mouseDown(): void {}
+  mouseMove(e: MouseEvent): void {
+    if (!this.shape) return;
+    this.clear();
+    this.redraw();
+    this.shape.setX(e.offsetX - this.offsetX);
+    this.shape.setY(e.offsetY - this.offsetY);
+    this.shape.select();
+  }
 
-  mouseMove(): void {}
+  mouseUp(): void {
+    this.shape = null;
+  }
 
-  mouseUp(): void {}
-
-  mouseOut(): void {}
+  mouseOut(): void {
+    this.shape = null;
+  }
 }
