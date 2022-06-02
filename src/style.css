@@ -4,19 +4,12 @@ html, body {
   display: flex;
   height: 100%;
   justify-content: center;
-  display: flex;
 }
 #app {
   display: flex;
 }
-#box {
-  display: flex;
-  flex-direction: column;
-}
 #canvas {
   background-color: white;
-  border: 1px solid dimgray;
-  box-sizing: border-box;
 }
 .widget {
   align-items: center;
