@@ -1,10 +1,7 @@
 import Widget from './Widget';
-import { WidgetType } from '../enums';
 import { Rectangle } from '../shapes';
 
 export default class RectangleWidget extends Widget {
-  readonly type = WidgetType.Rectangle;
-
   private shape: Rectangle = new Rectangle(this.ctx);
 
   private isDrawing = false;

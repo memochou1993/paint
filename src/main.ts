@@ -29,16 +29,16 @@ class App {
 
   private initWidgets() {
     this.widgets.forEach((type: string) => {
-      const element = document.getElementById(type) as Element;
-      const widget = WidgetFactory.create(element, this.canvas, this.ctx, this.shapes) as Drawable;
-      element.addEventListener('click', () => this.toggleWidget(widget));
+      const el = document.getElementById(type) as Element;
+      const widget = WidgetFactory.create(el, this.canvas, this.ctx, this.shapes) as Drawable;
+      el.addEventListener('click', () => this.toggleWidget(widget));
     });
   }
 
   private toggleWidget(widget: Drawable) {
     widget.el.classList.add('selected');
     this.widget?.el.classList.remove('selected');
-    this.widget = this.widget?.type === widget.type ? null : widget;
+    this.widget = this.widget?.el.id === widget.el.id ? null : widget;
   }
 
   private initCanvas() {

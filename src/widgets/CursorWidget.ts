@@ -1,9 +1,6 @@
 import Widget from './Widget';
-import { WidgetType } from '../enums';
 
 export default class CursorWidget extends Widget {
-  readonly type = WidgetType.Cursor;
-
   onClick(e: MouseEvent): void {
     this.redraw();
     const index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));

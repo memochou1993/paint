@@ -1,4 +1,3 @@
-import { WidgetType } from '../enums';
 import { Drawable } from './Drawable';
 import { Shape } from '../shapes';
 
@@ -11,8 +10,6 @@ export default abstract class Widget implements Drawable {
   
   readonly shapes: Array<Shape>;
   
-  abstract readonly type: WidgetType;
-
   constructor(el: Element, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, shapes: Array<Shape>) {
     this.el = el;
     this.canvas = canvas;

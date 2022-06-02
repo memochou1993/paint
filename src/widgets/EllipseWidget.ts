@@ -1,10 +1,7 @@
 import Widget from './Widget';
-import { WidgetType } from '../enums';
 import { Ellipse } from '../shapes';
 
 export default class EllipseWidget extends Widget {
-  readonly type = WidgetType.Ellipse;
-
   private shape: Ellipse = new Ellipse(this.ctx);
 
   private isDrawing = false;
