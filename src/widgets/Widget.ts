@@ -10,11 +10,33 @@ export default abstract class Widget implements Drawable {
   
   readonly shapes: Array<Shape>;
 
+  private onGroup: Function | null = null;
+
+  private onUngroup: Function | null = null;
+
   constructor(el: Element, canvas: HTMLCanvasElement, shapes: Array<Shape>) {
     this.element = el;
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     this.shapes = shapes;
+    this.initExtensions();
+  }
+
+  private initExtensions(): void {
+    document.getElementById('group')?.addEventListener('click', () => {
+      if (this.onGroup) this.onGroup();
+    });
+    document.getElementById('ungroup')?.addEventListener('click', () => {
+      if (this.onUngroup) this.onUngroup();
+    });
+  }
+
+  protected setOnGroup(handler: Function): void {
+    if (!this.onGroup) this.onGroup = handler;
+  }
+
+  protected setOnUngroup(handler: Function): void {
+    if (!this.onUngroup) this.onUngroup = handler;
   }
 
   protected clear(): void {
