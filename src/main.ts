@@ -56,8 +56,8 @@ class App {
   }
 
   private resizeCanvas(): void {
-    this.canvas.height = window.innerHeight;
-    this.canvas.width = window.innerWidth - 80;
+    this.canvas.height = window.innerHeight - ((document.getElementById('header') as HTMLElement).clientHeight);
+    this.canvas.width = window.innerWidth - ((document.getElementById('sidebar') as HTMLElement).clientWidth);
   }
 }
 

@@ -8,18 +8,36 @@
   </head>
   <body>
     <div id="app">
-        <div id="bar">
-            <div class="widget" id="cursor">
-              <img src="/src/assets/cursor.svg">
-            </div>
-            <div class="widget" id="rectangle">
-              <img src="/src/assets/rectangle.svg">
-            </div>
-            <div class="widget" id="ellipse">
-              <img src="/src/assets/ellipse.svg">
-            </div>
+      <header id="header">
+        <div id="logo">Paint</div>
+        <div class="menu">
+          File
+        </div>
+        <div class="menu">
+          Edit
+          <ul>
+            <li>Group</li>
+            <li>Ungroup</li>
+          </ul>
+        </div>
+        <div class="menu">
+          View
+        </div>
+      </header>
+      <main id="main">
+        <div id="sidebar">
+          <div class="widget" id="cursor">
+            <img src="/src/assets/cursor.svg">
+          </div>
+          <div class="widget" id="rectangle">
+            <img src="/src/assets/rectangle.svg">
+          </div>
+          <div class="widget" id="ellipse">
+            <img src="/src/assets/ellipse.svg">
+          </div>
         </div>
         <canvas id="canvas"></canvas>
+      </main>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

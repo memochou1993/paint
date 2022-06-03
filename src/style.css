@@ -5,8 +5,44 @@ html, body {
   height: 100%;
   justify-content: center;
 }
+header {
+  border-bottom: 2px solid lightgrey;
+  color: lightgrey;
+  display: flex;
+  font-weight: 600;
+  padding: 8px 0;
+  user-select: none;
+}
+#logo {
+  display: flex;
+  justify-content: center;
+  width: 80px;
+}
+.menu {
+  cursor: pointer;
+  font-weight: 400;
+  margin: 0 12px;
+}
+.menu ul {
+  background: black;
+  list-style: none;
+  margin: calc(12px - 2px) 0 0 0;
+  padding: 0;
+  position: absolute;
+  transform: translate(-12px, 0);
+}
+.menu ul li {
+  border-bottom: 2px solid lightgrey;
+  padding: 8px 12px;
+  width: 120px;
+}
+main {
+  display: flex;
+}
 #app {
   display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 #canvas {
   background-color: white;
