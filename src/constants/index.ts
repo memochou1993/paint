@@ -12,5 +12,5 @@ export const OutlineStyle = Object.freeze({
 export const ShapeStyle = Object.freeze({
   LINE_WIDTH: 2,
   FILL_COLOR: 'aliceblue',
-  STROKE_COLOR: 'grey',
+  STROKE_COLOR: 'steelblue',
 });
