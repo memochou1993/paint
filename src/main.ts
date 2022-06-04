@@ -49,6 +49,7 @@ class App {
     this.widget?.element.classList.remove('selected');
     this.widget = this.widget?.element.id === widget.element.id ? null : widget;
     this.widget?.element.classList.add('selected');
+    document.body.style.cursor = this.widget?.cursor || 'default';
   }
 
   private resizeCanvas(): void {

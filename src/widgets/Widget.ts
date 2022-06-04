@@ -12,6 +12,8 @@ export default abstract class Widget implements Drawable {
 
   protected isDrawing: boolean = false;
 
+  abstract cursor: string;
+
   constructor(el: Element, canvas: HTMLCanvasElement, shapes: Array<Shape>) {
     this.element = el;
     this.canvas = canvas;
@@ -25,6 +27,10 @@ export default abstract class Widget implements Drawable {
     document.getElementById('ungroup')?.addEventListener('click', () => this.onUngroup());
   }
 
+  protected setIsDrawing(isDrawing: boolean): void {
+    this.isDrawing = isDrawing;
+  }
+
   protected clear(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
@@ -34,23 +40,19 @@ export default abstract class Widget implements Drawable {
   }
 
   mouseDown(e: MouseEvent): void {
-    this.isDrawing = true;
     this.onMouseDown(e);
   }
 
   mouseMove(e: MouseEvent): void {
-    if (!this.isDrawing) return;
     this.onMouseMove(e);
   }
 
   mouseUp(e: MouseEvent): void {
     this.onMouseUp(e);
-    this.isDrawing = false;
   }
 
   mouseOut(e: MouseEvent): void {
     this.onMouseOut(e);
-    this.isDrawing = false;
   }
 
   protected onGroup(): void {}

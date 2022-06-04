@@ -3,15 +3,18 @@ import { Shape } from '../shapes';
 import { OutlineStyle, ShapeStyle } from '../constants';
 
 export default class CursorWidget extends Widget {
+  readonly cursor: string = 'default';
+
   private selectedShapes: Array<Shape> = [];
 
   private groups: Array<Array<Shape>> = [];
 
   onMouseDown(e: MouseEvent): void {
+    this.setIsDrawing(true);
     this.clear();
     this.redraw();
     if (!this.selectGroup(e) && !this.selectShape(e)) {
-      this.isDrawing = false;
+      this.setIsDrawing(false);
       return;
     }
     this.selectedShapes.forEach((shape) => {
@@ -23,6 +26,8 @@ export default class CursorWidget extends Widget {
   }
 
   onMouseMove(e: MouseEvent): void {
+    document.body.style.cursor = this.shapes.some((shape) => shape.contains(e.offsetX, e.offsetY)) ? 'move' : this.cursor;
+    if (!this.isDrawing) return;
     this.selectedShapes.forEach((shape) => {
       shape.setX(e.offsetX - shape.offsetX);
       shape.setY(e.offsetY - shape.offsetY);
@@ -33,9 +38,13 @@ export default class CursorWidget extends Widget {
     this.drawGroupOutline();
   }
 
-  onMouseUp(): void {}
+  onMouseUp(): void {
+    this.setIsDrawing(false);
+  }
 
-  onMouseOut(): void {}
+  onMouseOut(): void {
+    this.onMouseUp();
+  }
 
   onGroup(): void {
     if (this.selectedShapes.length <= 1) return;
