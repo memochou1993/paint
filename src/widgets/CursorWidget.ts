@@ -40,6 +40,10 @@ export default class CursorWidget extends Widget {
     this.groups.push(this.selectedShapes);
   }
 
+  onUngroup(): void {
+    this.groups = this.groups.filter((group) => group !== this.selectedShapes);
+  }
+
   private selectGroup(e: MouseEvent): boolean {
     const selected = [...this.groups].reverse().find((group) => group.some((shape) => shape.contains(e.offsetX, e.offsetY)));
     if (!selected) return false;
