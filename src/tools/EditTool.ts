@@ -1,6 +1,6 @@
 import Storage from '../storage';
 
-export default class EditExtension {
+export default class EditTool {
   private storage: Storage;
 
   constructor(storage: Storage) {

@@ -1,7 +1,7 @@
 import { WidgetFactory } from './factories';
 import Storage from './storage';
 import { Drawable } from './widgets';
-import { ExtensionRegister } from './extensions';
+import { FileTool, EditTool, ViewTool } from './tools';
 import './style.css';
 
 class App {
@@ -13,9 +13,15 @@ class App {
 
   constructor() {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
-    new ExtensionRegister(this.storage);
+    this.initTools();
     this.initWidgets();
     this.initCanvas();
+  }
+
+  private initTools(): void {
+    new FileTool(this.storage);
+    new EditTool(this.storage);
+    new ViewTool(this.storage);
   }
 
   private initWidgets(): void {
