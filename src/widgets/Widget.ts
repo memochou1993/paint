@@ -31,11 +31,11 @@ export default abstract class Widget implements Drawable {
     this.isDrawing = isDrawing;
   }
 
-  protected clear(): void {
+  clear(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  protected redraw(): void {
+  redraw(): void {
     this.shapes.forEach((shape) => shape.draw());
   }
 
