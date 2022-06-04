@@ -9,7 +9,7 @@ export default class CursorWidget extends Widget {
 
   private groups: Array<Array<Shape>> = [];
 
-  onMouseDown(e: MouseEvent): void {
+  mouseDown(e: MouseEvent): void {
     this.setIsDrawing(true);
     this.clear();
     this.redraw();
@@ -25,7 +25,7 @@ export default class CursorWidget extends Widget {
     this.drawGroupOutline();
   }
 
-  onMouseMove(e: MouseEvent): void {
+  mouseMove(e: MouseEvent): void {
     document.body.style.cursor = this.shapes.some((shape) => shape.contains(e.offsetX, e.offsetY)) ? 'move' : this.cursor;
     if (!this.isDrawing) return;
     this.selectedShapes.forEach((shape) => {
@@ -38,21 +38,21 @@ export default class CursorWidget extends Widget {
     this.drawGroupOutline();
   }
 
-  onMouseUp(): void {
+  mouseUp(): void {
     this.setIsDrawing(false);
   }
 
-  onMouseOut(): void {
-    this.onMouseUp();
+  mouseOut(): void {
+    this.mouseUp();
   }
 
-  onGroup(): void {
+  group(): void {
     if (this.selectedShapes.length <= 1) return;
     if (this.groups.some((group) => group === this.selectedShapes)) return;
     this.groups.push(this.selectedShapes);
   }
 
-  onUngroup(): void {
+  ungroup(): void {
     this.groups = this.groups.filter((group) => group !== this.selectedShapes);
   }
 

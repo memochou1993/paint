@@ -10,14 +10,14 @@ export default class EllipseWidget extends Widget {
 
   private startY = 0;
 
-  onMouseDown(e: MouseEvent): void {
+  mouseDown(e: MouseEvent): void {
     this.setIsDrawing(true);
     this.shape = new Ellipse(this.ctx);
     this.startX = e.offsetX;
     this.startY = e.offsetY;
   }
 
-  onMouseMove(e: MouseEvent): void {
+  mouseMove(e: MouseEvent): void {
     if (!this.isDrawing) return;
     this.clear();
     this.redraw();
@@ -30,12 +30,12 @@ export default class EllipseWidget extends Widget {
     this.shape.draw();
   }
 
-  onMouseUp(): void {
+  mouseUp(): void {
     this.shapes.push(this.shape);
     this.setIsDrawing(false);
   }
 
-  onMouseOut(): void {
-    this.onMouseUp();
+  mouseOut(): void {
+    this.mouseUp();
   }
 }

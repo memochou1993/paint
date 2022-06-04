@@ -23,8 +23,8 @@ export default abstract class Widget implements Drawable {
   }
 
   private initExtensions(): void {
-    document.getElementById('group')?.addEventListener('click', () => this.onGroup());
-    document.getElementById('ungroup')?.addEventListener('click', () => this.onUngroup());
+    document.getElementById('group')?.addEventListener('click', () => this.group());
+    document.getElementById('ungroup')?.addEventListener('click', () => this.ungroup());
   }
 
   protected setIsDrawing(isDrawing: boolean): void {
@@ -39,31 +39,15 @@ export default abstract class Widget implements Drawable {
     this.shapes.forEach((shape) => shape.draw());
   }
 
-  mouseDown(e: MouseEvent): void {
-    this.onMouseDown(e);
-  }
+  protected group(): void {}
 
-  mouseMove(e: MouseEvent): void {
-    this.onMouseMove(e);
-  }
+  protected ungroup(): void {}
 
-  mouseUp(e: MouseEvent): void {
-    this.onMouseUp(e);
-  }
+  abstract mouseDown(e: MouseEvent): void;
 
-  mouseOut(e: MouseEvent): void {
-    this.onMouseOut(e);
-  }
+  abstract mouseMove(e: MouseEvent): void;
 
-  protected onGroup(): void {}
+  abstract mouseUp(e: MouseEvent): void;
 
-  protected onUngroup(): void {}
-
-  protected abstract onMouseDown(e: MouseEvent): void;
-
-  protected abstract onMouseMove(e: MouseEvent): void;
-
-  protected abstract onMouseUp(e: MouseEvent): void;
-
-  protected abstract onMouseOut(e: MouseEvent): void;
+  abstract mouseOut(e: MouseEvent): void;
 }
