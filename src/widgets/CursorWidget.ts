@@ -1,5 +1,6 @@
 import Widget from './Widget';
 import { Shape } from '../shapes';
+import { OutlineStyle, ShapeStyle } from '../constants';
 
 export default class CursorWidget extends Widget {
   private selectedShapes: Array<Shape> = [];
@@ -18,6 +19,7 @@ export default class CursorWidget extends Widget {
       shape.setOffsetY(e.offsetY - shape.y);
       shape.select();
     });
+    this.drawGroupOutline();
   }
 
   onMouseMove(e: MouseEvent): void {
@@ -28,6 +30,7 @@ export default class CursorWidget extends Widget {
     this.clear();
     this.redraw();
     this.selectedShapes.forEach((shape) => shape.select());
+    this.drawGroupOutline();
   }
 
   onMouseUp(): void {}
@@ -65,5 +68,16 @@ export default class CursorWidget extends Widget {
     }
     this.selectedShapes.push(selected);
     return true;
+  }
+
+  private drawGroupOutline(): void {
+    if (this.selectedShapes.length <= 1) return;
+    this.ctx.strokeStyle = OutlineStyle.STROKE_COLOR;
+    const minX = Math.min(...this.selectedShapes.map((shape) => shape.minX));
+    const minY = Math.min(...this.selectedShapes.map((shape) => shape.minY));
+    const maxX = Math.max(...this.selectedShapes.map((shape) => shape.maxX));
+    const maxY = Math.max(...this.selectedShapes.map((shape) => shape.maxY));
+    this.ctx.strokeRect(minX, minY, maxX - minX, maxY - minY);
+    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
   }
 }

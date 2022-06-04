@@ -30,6 +30,22 @@ export default class Rectangle extends Shape {
     this.height = height;
   }
 
+  get minX(): number {
+    return this.width > 0 ? this.x : this.x + this.width;
+  }
+
+  get minY(): number {
+    return this.height > 0 ? this.y : this.y + this.height;
+  }
+
+  get maxX(): number {
+    return this.width > 0 ? this.x + this.width :  this.x;
+  }
+
+  get maxY(): number {
+    return this.height > 0 ? this.y + this.height : this.y;
+  }
+
   draw(): void {
     this.ctx.lineWidth = ShapeStyle.LINE_WIDTH;
     this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
@@ -39,8 +55,8 @@ export default class Rectangle extends Shape {
   }
 
   select(): void {
-    this.anchor();
-    this.outline();
+    this.drawAnchor();
+    this.drawOutline();
   }
 
   contains(x: number, y: number): boolean {
@@ -53,7 +69,7 @@ export default class Rectangle extends Shape {
     return this.width * this.height === 0;
   }
 
-  private anchor(): void {
+  private drawAnchor(): void {
     this.ctx.fillStyle = AnchorStyle.FILL_COLOR;
     const { HEIGHT: h, WIDTH: w } = AnchorStyle;
     this.ctx.beginPath();
@@ -65,7 +81,7 @@ export default class Rectangle extends Shape {
     this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
   }
 
-  private outline(): void {
+  private drawOutline(): void {
     this.ctx.lineWidth = OutlineStyle.LINE_WIDTH;
     this.ctx.strokeStyle = OutlineStyle.STROKE_COLOR;
     this.ctx.strokeRect(this.x, this.y, this.width, this.height);

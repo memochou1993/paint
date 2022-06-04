@@ -53,8 +53,8 @@ export default class Ellipse extends Shape {
   }
 
   select(): void {
-    this.anchor();
-    this.outline();
+    this.drawAnchor();
+    this.drawOutline();
   }
 
   contains(x: number, y: number): boolean {
@@ -67,7 +67,23 @@ export default class Ellipse extends Shape {
     return this.radiusX * this.radiusY === 0;
   }
 
-  private anchor(): void {
+  get minX(): number {
+    return this.x - this.radiusX;
+  }
+
+  get minY(): number {
+    return this.y - this.radiusY;
+  }
+
+  get maxX(): number {
+    return this.x + this.radiusX;
+  }
+
+  get maxY(): number {
+    return this.y + this.radiusY;
+  }
+
+  private drawAnchor(): void {
     this.ctx.fillStyle = AnchorStyle.FILL_COLOR;
     const { HEIGHT: h, WIDTH: w } = AnchorStyle;
     this.ctx.beginPath();
@@ -79,7 +95,7 @@ export default class Ellipse extends Shape {
     this.ctx.fillStyle = ShapeStyle.FILL_COLOR;
   }
 
-  private outline(): void {
+  private drawOutline(): void {
     this.ctx.lineWidth = OutlineStyle.LINE_WIDTH;
     this.ctx.strokeStyle = OutlineStyle.STROKE_COLOR;
     this.ctx.beginPath();

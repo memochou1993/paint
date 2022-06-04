@@ -6,7 +6,6 @@ export const AnchorStyle = Object.freeze({
 
 export const OutlineStyle = Object.freeze({
   LINE_WIDTH: 2,
-  FILL_COLOR: 'aliceblue',
   STROKE_COLOR: 'steelblue',
 });
 

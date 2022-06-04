@@ -31,6 +31,14 @@ export default abstract class Shape {
     this.offsetY = offsetY;
   }
 
+  abstract get minX(): number;
+
+  abstract get minY(): number;
+
+  abstract get maxX(): number;
+
+  abstract get maxY(): number;
+
   abstract draw(): void;
   
   abstract select(): void;
