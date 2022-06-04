@@ -6,16 +6,7 @@ export default class CursorWidget extends Widget {
 
   private groups: Array<Array<Shape>> = [];
 
-  private isDrawing: boolean = false;
-
-  click(): void {}
-
-  mouseDown(e: MouseEvent): void {
-    this.isDrawing = true;
-    this.setOnGroup(() => {
-      if (this.groups.some((group) => group === this.selectedShapes)) return;
-      this.groups.push(this.selectedShapes);
-    });
+  onMouseDown(e: MouseEvent): void {
     this.clear();
     this.redraw();
     if (!this.selectGroup(e) && !this.selectShape(e)) {
@@ -29,8 +20,7 @@ export default class CursorWidget extends Widget {
     });
   }
 
-  mouseMove(e: MouseEvent): void {
-    if (!this.isDrawing) return;
+  onMouseMove(e: MouseEvent): void {
     this.selectedShapes.forEach((shape) => {
       shape.setX(e.offsetX - shape.offsetX);
       shape.setY(e.offsetY - shape.offsetY);
@@ -40,12 +30,14 @@ export default class CursorWidget extends Widget {
     this.selectedShapes.forEach((shape) => shape.select());
   }
 
-  mouseUp(): void {
-    this.isDrawing = false;
-  }
+  onMouseUp(): void {}
 
-  mouseOut(): void {
-    this.isDrawing = false;
+  onMouseOut(): void {}
+
+  onGroup(): void {
+    if (this.selectedShapes.length <= 1) return;
+    if (this.groups.some((group) => group === this.selectedShapes)) return;
+    this.groups.push(this.selectedShapes);
   }
 
   private selectGroup(e: MouseEvent): boolean {

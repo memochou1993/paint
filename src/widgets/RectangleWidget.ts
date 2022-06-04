@@ -2,18 +2,15 @@ import Widget from './Widget';
 import { Rectangle } from '../shapes';
 
 export default class RectangleWidget extends Widget {
-  private shape: Rectangle | null = null;
+  private shape: Rectangle = new Rectangle(this.ctx);
 
-  click(): void {}
-
-  mouseDown(e: MouseEvent): void {
+  onMouseDown(e: MouseEvent): void {
     this.shape = new Rectangle(this.ctx);
     this.shape.setX(e.offsetX);
     this.shape.setY(e.offsetY);
   }
 
-  mouseMove(e: MouseEvent): void {
-    if (!this.shape) return;
+  onMouseMove(e: MouseEvent): void {
     this.clear();
     this.redraw();
     this.shape.setWidth(e.offsetX - this.shape.x);
@@ -21,15 +18,11 @@ export default class RectangleWidget extends Widget {
     this.shape.draw();
   }
 
-  mouseUp(): void {
-    if (!this.shape) return;
+  onMouseUp(): void {
     this.shapes.push(this.shape);
-    this.shape = null;
   }
 
-  mouseOut(): void {
-    if (!this.shape) return;
+  onMouseOut(): void {
     this.shapes.push(this.shape);
-    this.shape = null;
   }
 }

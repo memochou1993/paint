@@ -26,10 +26,6 @@ class App {
 
   private initCanvas(): void {
     this.resizeCanvas();
-    this.canvas.addEventListener('click', (e: MouseEvent) => {
-      e.preventDefault();
-      this.widget?.click(e);
-    });
     this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
       e.preventDefault();
       this.widget?.mouseDown(e);

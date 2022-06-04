@@ -10,9 +10,7 @@ export default abstract class Widget implements Drawable {
   
   readonly shapes: Array<Shape>;
 
-  private onGroup: Function | null = null;
-
-  private onUngroup: Function | null = null;
+  protected isDrawing: boolean = false;
 
   constructor(el: Element, canvas: HTMLCanvasElement, shapes: Array<Shape>) {
     this.element = el;
@@ -23,20 +21,8 @@ export default abstract class Widget implements Drawable {
   }
 
   private initExtensions(): void {
-    document.getElementById('group')?.addEventListener('click', () => {
-      if (this.onGroup) this.onGroup();
-    });
-    document.getElementById('ungroup')?.addEventListener('click', () => {
-      if (this.onUngroup) this.onUngroup();
-    });
-  }
-
-  protected setOnGroup(handler: Function): void {
-    if (!this.onGroup) this.onGroup = handler;
-  }
-
-  protected setOnUngroup(handler: Function): void {
-    if (!this.onUngroup) this.onUngroup = handler;
+    document.getElementById('group')?.addEventListener('click', () => this.onGroup());
+    document.getElementById('ungroup')?.addEventListener('click', () => this.onUngroup());
   }
 
   protected clear(): void {
@@ -47,13 +33,35 @@ export default abstract class Widget implements Drawable {
     this.shapes.forEach((shape) => shape.draw());
   }
 
-  abstract click(e: MouseEvent): void;
+  mouseDown(e: MouseEvent): void {
+    this.isDrawing = true;
+    this.onMouseDown(e);
+  }
 
-  abstract mouseDown(e: MouseEvent): void;
+  mouseMove(e: MouseEvent): void {
+    if (!this.isDrawing) return;
+    this.onMouseMove(e);
+  }
 
-  abstract mouseMove(e: MouseEvent): void;
+  mouseUp(e: MouseEvent): void {
+    this.onMouseUp(e);
+    this.isDrawing = false;
+  }
 
-  abstract mouseUp(e: MouseEvent): void;
+  mouseOut(e: MouseEvent): void {
+    this.onMouseOut(e);
+    this.isDrawing = false;
+  }
 
-  abstract mouseOut(e: MouseEvent): void;
+  protected onGroup(): void {}
+
+  protected onUngroup(): void {}
+
+  protected abstract onMouseDown(e: MouseEvent): void;
+
+  protected abstract onMouseMove(e: MouseEvent): void;
+
+  protected abstract onMouseUp(e: MouseEvent): void;
+
+  protected abstract onMouseOut(e: MouseEvent): void;
 }
