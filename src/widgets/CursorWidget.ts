@@ -1,13 +1,8 @@
 import Widget from './Widget';
-import { Shape } from '../shapes';
 import { OutlineStyle, ShapeStyle } from '../constants';
 
 export default class CursorWidget extends Widget {
   readonly cursor: string = 'default';
-
-  private selectedShapes: Array<Shape> = [];
-
-  private groups: Array<Array<Shape>> = [];
 
   mouseDown(e: MouseEvent): void {
     this.setIsDrawing(true);
@@ -17,7 +12,7 @@ export default class CursorWidget extends Widget {
       this.setIsDrawing(false);
       return;
     }
-    this.selectedShapes.forEach((shape) => {
+    this.storage.selectedShapes.forEach((shape) => {
       shape.setOffsetX(e.offsetX - shape.x);
       shape.setOffsetY(e.offsetY - shape.y);
       shape.select();
@@ -28,13 +23,13 @@ export default class CursorWidget extends Widget {
   mouseMove(e: MouseEvent): void {
     document.body.style.cursor = this.storage.shapes.some((shape) => shape.contains(e.offsetX, e.offsetY)) ? 'move' : this.cursor;
     if (!this.isDrawing) return;
-    this.selectedShapes.forEach((shape) => {
+    this.storage.selectedShapes.forEach((shape) => {
       shape.setX(e.offsetX - shape.offsetX);
       shape.setY(e.offsetY - shape.offsetY);
     });
     this.clear();
     this.redraw();
-    this.selectedShapes.forEach((shape) => shape.select());
+    this.storage.selectedShapes.forEach((shape) => shape.select());
     this.drawGroupOutline();
   }
 
@@ -47,19 +42,19 @@ export default class CursorWidget extends Widget {
   }
 
   group(): void {
-    if (this.selectedShapes.length <= 1) return;
-    if (this.groups.some((group) => group === this.selectedShapes)) return;
-    this.groups.push(this.selectedShapes);
+    if (this.storage.selectedShapes.length <= 1) return;
+    if (this.storage.groups.some((group) => group === this.storage.selectedShapes)) return;
+    this.storage.groups.push(this.storage.selectedShapes);
   }
 
   ungroup(): void {
-    this.groups = this.groups.filter((group) => group !== this.selectedShapes);
+    this.storage.groups = this.storage.groups.filter((group) => group !== this.storage.selectedShapes);
   }
 
   private selectGroup(e: MouseEvent): boolean {
-    const selected = [...this.groups].reverse().find((group) => group.some((shape) => shape.contains(e.offsetX, e.offsetY)));
+    const selected = [...this.storage.groups].reverse().find((group) => group.some((shape) => shape.contains(e.offsetX, e.offsetY)));
     if (!selected) return false;
-    this.selectedShapes = selected;
+    this.storage.selectedShapes = selected;
     return true;
   }
 
@@ -68,24 +63,24 @@ export default class CursorWidget extends Widget {
     if (index < 0) return false;
     const selected = this.storage.shapes[this.storage.shapes.length - index - 1];
     if (!e.shiftKey) {
-      this.selectedShapes = [selected];
+      this.storage.selectedShapes = [selected];
       return true;
     }
-    if (this.selectedShapes.includes(selected)) {
-      this.selectedShapes = this.selectedShapes.filter((shape) => shape !== selected);
+    if (this.storage.selectedShapes.includes(selected)) {
+      this.storage.selectedShapes = this.storage.selectedShapes.filter((shape) => shape !== selected);
       return true;
     }
-    this.selectedShapes.push(selected);
+    this.storage.selectedShapes.push(selected);
     return true;
   }
 
   private drawGroupOutline(): void {
-    if (this.selectedShapes.length <= 1) return;
+    if (this.storage.selectedShapes.length <= 1) return;
     this.ctx.strokeStyle = OutlineStyle.STROKE_COLOR;
-    const minX = Math.min(...this.selectedShapes.map((shape) => shape.minX));
-    const minY = Math.min(...this.selectedShapes.map((shape) => shape.minY));
-    const maxX = Math.max(...this.selectedShapes.map((shape) => shape.maxX));
-    const maxY = Math.max(...this.selectedShapes.map((shape) => shape.maxY));
+    const minX = Math.min(...this.storage.selectedShapes.map((shape) => shape.minX));
+    const minY = Math.min(...this.storage.selectedShapes.map((shape) => shape.minY));
+    const maxX = Math.max(...this.storage.selectedShapes.map((shape) => shape.maxX));
+    const maxY = Math.max(...this.storage.selectedShapes.map((shape) => shape.maxY));
     this.ctx.strokeRect(minX, minY, maxX - minX, maxY - minY);
     this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
   }
