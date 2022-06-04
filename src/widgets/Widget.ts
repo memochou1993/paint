@@ -19,12 +19,6 @@ export default abstract class Widget implements Drawable {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     this.storage = storage;
-    this.initExtensions();
-  }
-
-  private initExtensions(): void {
-    document.getElementById('group')?.addEventListener('click', () => this.group());
-    document.getElementById('ungroup')?.addEventListener('click', () => this.ungroup());
   }
 
   protected setIsDrawing(isDrawing: boolean): void {
@@ -38,10 +32,6 @@ export default abstract class Widget implements Drawable {
   redraw(): void {
     this.storage.shapes.forEach((shape) => shape.draw());
   }
-
-  protected group(): void {}
-
-  protected ungroup(): void {}
 
   abstract mouseDown(e: MouseEvent): void;
 

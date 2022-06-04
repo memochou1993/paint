@@ -41,16 +41,6 @@ export default class CursorWidget extends Widget {
     this.mouseUp();
   }
 
-  group(): void {
-    if (this.storage.selectedShapes.length <= 1) return;
-    if (this.storage.groups.some((group) => group === this.storage.selectedShapes)) return;
-    this.storage.groups.push(this.storage.selectedShapes);
-  }
-
-  ungroup(): void {
-    this.storage.groups = this.storage.groups.filter((group) => group !== this.storage.selectedShapes);
-  }
-
   private selectGroup(e: MouseEvent): boolean {
     const selected = [...this.storage.groups].reverse().find((group) => group.some((shape) => shape.contains(e.offsetX, e.offsetY)));
     if (!selected) return false;

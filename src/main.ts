@@ -1,17 +1,19 @@
 import { WidgetFactory } from './factories';
 import Storage from './storage';
 import { Drawable } from './widgets';
+import { ExtensionRegister } from './extensions';
 import './style.css';
 
 class App {
   private canvas: HTMLCanvasElement;
 
   private storage: Storage = new Storage();
-  
+
   private widget: Drawable | null = null;
 
   constructor() {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
+    new ExtensionRegister(this.storage);
     this.initWidgets();
     this.initCanvas();
   }
