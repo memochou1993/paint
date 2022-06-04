@@ -26,7 +26,7 @@ class App {
 
   private initCanvas(): void {
     this.resizeCanvas();
-    this.canvas.addEventListener('click', async (e: MouseEvent) => {
+    this.canvas.addEventListener('click', (e: MouseEvent) => {
       e.preventDefault();
       this.widget?.click(e);
     });
@@ -38,11 +38,11 @@ class App {
       e.preventDefault();
       this.widget?.mouseMove(e);
     });
-    this.canvas.addEventListener('mouseup', async (e: MouseEvent) => {
+    this.canvas.addEventListener('mouseup', (e: MouseEvent) => {
       e.preventDefault();
       this.widget?.mouseUp(e);
     });
-    this.canvas.addEventListener('mouseout', async (e: MouseEvent) => {
+    this.canvas.addEventListener('mouseout', (e: MouseEvent) => {
       e.preventDefault();
       this.widget?.mouseOut(e);
     });

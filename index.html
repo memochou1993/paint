@@ -7,38 +7,36 @@
     <title>Paint</title>
   </head>
   <body>
-    <div id="app">
-      <header id="header">
-        <div id="logo">Paint</div>
-        <div class="menu">
-          File
+    <header id="header">
+      <div id="logo">Paint</div>
+      <div class="menu">
+        File
+      </div>
+      <div class="menu">
+        Edit
+        <ul>
+          <li id="group">Group</li>
+          <li id="ungroup">Ungroup</li>
+        </ul>
+      </div>
+      <div class="menu">
+        View
+      </div>
+    </header>
+    <main>
+      <div id="sidebar">
+        <div class="widget" id="cursor">
+          <img src="/src/assets/cursor.svg">
         </div>
-        <div class="menu">
-          Edit
-          <ul>
-            <li id="group">Group</li>
-            <li id="ungroup">Ungroup</li>
-          </ul>
+        <div class="widget" id="rectangle">
+          <img src="/src/assets/rectangle.svg">
         </div>
-        <div class="menu">
-          View
+        <div class="widget" id="ellipse">
+          <img src="/src/assets/ellipse.svg">
         </div>
-      </header>
-      <main id="main">
-        <div id="sidebar">
-          <div class="widget" id="cursor">
-            <img src="/src/assets/cursor.svg">
-          </div>
-          <div class="widget" id="rectangle">
-            <img src="/src/assets/rectangle.svg">
-          </div>
-          <div class="widget" id="ellipse">
-            <img src="/src/assets/ellipse.svg">
-          </div>
-        </div>
-        <canvas id="canvas"></canvas>
-      </main>
-    </div>
+      </div>
+      <canvas id="canvas"></canvas>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

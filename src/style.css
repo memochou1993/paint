@@ -1,9 +1,9 @@
 html, body {
-  align-items: center;
   background-color: black;
   display: flex;
+  flex-direction: column;
   height: 100%;
-  justify-content: center;
+  margin: 0;
 }
 header {
   border-bottom: 2px solid lightgrey;
@@ -23,7 +23,7 @@ header {
   font-weight: 400;
   margin: 0 12px;
 }
-.menu ul {
+.menu > ul {
   background: black;
   list-style: none;
   margin: calc(12px - 2px) 0 0 0;
@@ -31,18 +31,13 @@ header {
   position: absolute;
   transform: translate(-12px, 0);
 }
-.menu ul li {
+.menu > ul > li {
   border-bottom: 2px solid lightgrey;
   padding: 8px 12px;
   width: 120px;
 }
 main {
   display: flex;
-}
-#app {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
 }
 #canvas {
   background-color: white;
