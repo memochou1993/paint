@@ -20,7 +20,7 @@ class App {
     const elements = document.getElementsByClassName('widget');
     Array.from(elements).forEach((element: Element) => {
       const widget = WidgetFactory.create(element, this.canvas, this.shapes) as Drawable;
-      element.addEventListener('click', () => this.toggleWidget(widget));
+      element.addEventListener('click', () => this.useWidget(widget));
     });
   }
 
@@ -45,16 +45,17 @@ class App {
     window.addEventListener('resize', () => this.resizeCanvas());
   }
 
-  private toggleWidget(widget: Drawable): void {
+  private useWidget(widget: Drawable): void {
     this.widget?.element.classList.remove('selected');
-    this.widget = this.widget?.element.id === widget.element.id ? null : widget;
-    this.widget?.element.classList.add('selected');
-    document.body.style.cursor = this.widget?.cursor || 'default';
+    this.widget = widget;
+    this.widget.element.classList.add('selected');
+    document.body.style.cursor = this.widget.cursor || 'default';
   }
 
   private resizeCanvas(): void {
     this.canvas.height = window.innerHeight - ((document.getElementById('header') as HTMLElement).clientHeight);
     this.canvas.width = window.innerWidth - ((document.getElementById('sidebar') as HTMLElement).clientWidth);
+    this.widget?.redraw();
   }
 }
 
