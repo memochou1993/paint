@@ -1,5 +1,5 @@
 import { Drawable } from './Drawable';
-import { Shape } from '../shapes';
+import Storage from '../storage';
 
 export default abstract class Widget implements Drawable {
   readonly element: Element;
@@ -7,18 +7,18 @@ export default abstract class Widget implements Drawable {
   readonly canvas: HTMLCanvasElement;
   
   readonly ctx: CanvasRenderingContext2D;
-  
-  readonly shapes: Array<Shape>;
 
+  protected storage: Storage;
+  
   protected isDrawing: boolean = false;
 
   abstract cursor: string;
 
-  constructor(el: Element, canvas: HTMLCanvasElement, shapes: Array<Shape>) {
+  constructor(el: Element, canvas: HTMLCanvasElement, storage: Storage) {
     this.element = el;
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
-    this.shapes = shapes;
+    this.storage = storage;
     this.initExtensions();
   }
 
@@ -36,7 +36,7 @@ export default abstract class Widget implements Drawable {
   }
 
   redraw(): void {
-    this.shapes.forEach((shape) => shape.draw());
+    this.storage.shapes.forEach((shape) => shape.draw());
   }
 
   protected group(): void {}

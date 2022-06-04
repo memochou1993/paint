@@ -1,5 +1,5 @@
 import { WidgetType } from '../enums';
-import { Shape } from '../shapes';
+import Storage from '../storage';
 import {
   Drawable,
   CursorWidget,
@@ -8,14 +8,14 @@ import {
 } from '../widgets';
 
 export default class WidgetFactory {
-  static create(element: Element, canvas: HTMLCanvasElement, shapes: Array<Shape>): Drawable | null {
+  static create(element: Element, canvas: HTMLCanvasElement, storage: Storage): Drawable | null {
     switch (element.id) {
       case WidgetType.Cursor:
-        return new CursorWidget(element, canvas, shapes);
+        return new CursorWidget(element, canvas, storage);
       case WidgetType.Rectangle:
-        return new RectangleWidget(element, canvas, shapes);
+        return new RectangleWidget(element, canvas, storage);
       case WidgetType.Ellipse:
-        return new EllipseWidget(element, canvas, shapes);
+        return new EllipseWidget(element, canvas, storage);
       default:
         return null;
     }

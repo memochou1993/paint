@@ -31,7 +31,7 @@ export default class EllipseWidget extends Widget {
   }
 
   mouseUp(): void {
-    this.shapes.push(this.shape);
+    this.storage.shapes.push(this.shape);
     this.setIsDrawing(false);
   }
 

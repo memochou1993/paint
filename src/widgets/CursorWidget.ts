@@ -26,7 +26,7 @@ export default class CursorWidget extends Widget {
   }
 
   mouseMove(e: MouseEvent): void {
-    document.body.style.cursor = this.shapes.some((shape) => shape.contains(e.offsetX, e.offsetY)) ? 'move' : this.cursor;
+    document.body.style.cursor = this.storage.shapes.some((shape) => shape.contains(e.offsetX, e.offsetY)) ? 'move' : this.cursor;
     if (!this.isDrawing) return;
     this.selectedShapes.forEach((shape) => {
       shape.setX(e.offsetX - shape.offsetX);
@@ -64,9 +64,9 @@ export default class CursorWidget extends Widget {
   }
 
   private selectShape(e: MouseEvent): boolean {
-    const index = [...this.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
+    const index = [...this.storage.shapes].reverse().findIndex((shape) => shape.contains(e.offsetX, e.offsetY));
     if (index < 0) return false;
-    const selected = this.shapes[this.shapes.length - index - 1];
+    const selected = this.storage.shapes[this.storage.shapes.length - index - 1];
     if (!e.shiftKey) {
       this.selectedShapes = [selected];
       return true;

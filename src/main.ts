@@ -1,13 +1,13 @@
 import { WidgetFactory } from './factories';
+import Storage from './storage';
 import { Drawable } from './widgets';
-import { Shape } from './shapes';
 import './style.css';
 
 class App {
   private canvas: HTMLCanvasElement;
-  
-  private shapes: Array<Shape> = [];
 
+  private storage: Storage = new Storage();
+  
   private widget: Drawable | null = null;
 
   constructor() {
@@ -19,7 +19,7 @@ class App {
   private initWidgets(): void {
     const elements = document.getElementsByClassName('widget');
     Array.from(elements).forEach((element: Element) => {
-      const widget = WidgetFactory.create(element, this.canvas, this.shapes) as Drawable;
+      const widget = WidgetFactory.create(element, this.canvas, this.storage) as Drawable;
       element.addEventListener('click', () => this.useWidget(widget));
     });
   }
