@@ -1,9 +1,9 @@
-import FileTool from './FileTool';
-import EditTool from './EditTool';
-import ViewTool from './ViewTool';
+import GroupTool from './GroupTool';
+import UngroupTool from './UngroupTool';
+import DeleteTool from './DeleteTool';
 
 export {
-  FileTool,
-  EditTool,
-  ViewTool,
+  GroupTool,
+  UngroupTool,
+  DeleteTool,
 };

@@ -1,7 +1,7 @@
-import { WidgetFactory } from './factories';
 import Canvas from './canvas';
+import { WidgetFactory } from './factories';
 import { Drawable } from './widgets';
-import { FileTool, EditTool, ViewTool } from './tools';
+import { GroupTool, UngroupTool, DeleteTool } from './tools';
 import './style.css';
 
 class App {
@@ -21,9 +21,9 @@ class App {
   }
 
   private initTools(): void {
-    new FileTool(this.canvas);
-    new EditTool(this.canvas);
-    new ViewTool(this.canvas);
+    new GroupTool(this.canvas);
+    new UngroupTool(this.canvas);
+    new DeleteTool(this.canvas);
   }
 
   private initWidgets(): void {
