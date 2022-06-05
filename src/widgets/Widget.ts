@@ -2,16 +2,15 @@ import { Drawable } from './Drawable';
 import Canvas from '../canvas';
 
 export default abstract class Widget implements Drawable {
-  readonly element: Element;
-
   protected canvas: Canvas;
   
   protected isDrawing: boolean = false;
 
+  abstract element: Element;
+  
   abstract cursor: string;
 
-  constructor(el: Element, canvas: Canvas) {
-    this.element = el;
+  constructor(canvas: Canvas) {
     this.canvas = canvas;
   }
 

@@ -24,7 +24,7 @@ class App {
   private initWidgets(): void {
     const elements = document.getElementsByClassName('widget');
     Array.from(elements).forEach((element: Element) => {
-      const widget = WidgetFactory.create(element, this.canvas) as Drawable;
+      const widget = WidgetFactory.create(element.id, this.canvas) as Drawable;
       element.addEventListener('click', () => this.useWidget(widget));
     });
   }

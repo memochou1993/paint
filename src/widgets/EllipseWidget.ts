@@ -1,7 +1,10 @@
 import Widget from './Widget';
+import { WidgetType } from '../enums';
 import { Ellipse } from '../shapes';
 
 export default class EllipseWidget extends Widget {
+  readonly element: Element = document.getElementById(WidgetType.Ellipse) as Element;
+  
   readonly cursor: string = 'crosshair';
 
   private shape: Ellipse = new Ellipse(this.canvas.ctx);

@@ -1,7 +1,10 @@
 import Widget from './Widget';
+import { WidgetType } from '../enums';
 import { Rectangle } from '../shapes';
 
 export default class RectangleWidget extends Widget {
+  readonly element: Element = document.getElementById(WidgetType.Rectangle) as Element;
+  
   readonly cursor: string = 'crosshair';
   
   private shape: Rectangle = new Rectangle(this.canvas.ctx);

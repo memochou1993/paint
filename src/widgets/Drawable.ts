@@ -1,6 +1,6 @@
 interface Drawable {
-  readonly element: Element;
-  readonly cursor: string;
+  get element(): Element;
+  get cursor(): string;
   clear(): void;
   redraw(): void;
   mouseDown(e: MouseEvent): void;

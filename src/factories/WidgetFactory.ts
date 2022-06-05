@@ -8,14 +8,14 @@ import {
 } from '../widgets';
 
 export default class WidgetFactory {
-  static create(element: Element, canvas: Canvas): Drawable | null {
-    switch (element.id) {
+  static create(type: string, canvas: Canvas): Drawable | null {
+    switch (type) {
       case WidgetType.Cursor:
-        return new CursorWidget(element, canvas);
+        return new CursorWidget(canvas);
       case WidgetType.Rectangle:
-        return new RectangleWidget(element, canvas);
+        return new RectangleWidget(canvas);
       case WidgetType.Ellipse:
-        return new EllipseWidget(element, canvas);
+        return new EllipseWidget(canvas);
       default:
         return null;
     }
