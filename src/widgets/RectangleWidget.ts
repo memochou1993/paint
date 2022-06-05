@@ -4,9 +4,9 @@ import { Rectangle } from '../shapes';
 
 export default class RectangleWidget extends Widget {
   readonly element: Element = document.getElementById(WidgetType.Rectangle) as Element;
-  
+
   readonly cursor: string = 'crosshair';
-  
+
   private shape: Rectangle | null = null;
 
   mouseDown(e: MouseEvent): void {

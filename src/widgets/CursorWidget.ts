@@ -4,7 +4,7 @@ import { OutlineStyle, ShapeStyle } from '../constants';
 
 export default class CursorWidget extends Widget {
   readonly element: Element = document.getElementById(WidgetType.Cursor) as Element;
-  
+
   readonly cursor: string = 'default';
 
   private isDrawing: boolean = false;

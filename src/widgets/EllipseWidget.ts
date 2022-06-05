@@ -4,7 +4,7 @@ import { Ellipse } from '../shapes';
 
 export default class EllipseWidget extends Widget {
   readonly element: Element = document.getElementById(WidgetType.Ellipse) as Element;
-  
+
   readonly cursor: string = 'crosshair';
 
   private shape: Ellipse | null = null;

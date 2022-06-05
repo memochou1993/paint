@@ -40,7 +40,7 @@ export default abstract class Shape {
   abstract get maxY(): number;
 
   abstract draw(): void;
-  
+
   abstract select(): void;
 
   abstract contains(x: number, y: number): boolean;

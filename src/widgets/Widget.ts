@@ -3,7 +3,7 @@ import Canvas from '../canvas';
 
 export default abstract class Widget implements Drawable {
   abstract element: Element;
-  
+
   abstract cursor: string;
 
   protected canvas: Canvas;
