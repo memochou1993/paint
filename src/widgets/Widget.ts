@@ -7,15 +7,9 @@ export default abstract class Widget implements Drawable {
   abstract cursor: string;
 
   protected canvas: Canvas;
-  
-  protected isDrawing: boolean = false;
 
   constructor(canvas: Canvas) {
     this.canvas = canvas;
-  }
-
-  protected setIsDrawing(isDrawing: boolean): void {
-    this.isDrawing = isDrawing;
   }
 
   abstract mouseDown(e: MouseEvent): void;

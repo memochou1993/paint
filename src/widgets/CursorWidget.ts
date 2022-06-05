@@ -7,13 +7,15 @@ export default class CursorWidget extends Widget {
   
   readonly cursor: string = 'default';
 
+  private isDrawing: boolean = false;
+
   mouseDown(e: MouseEvent): void {
-    this.setIsDrawing(true);
+    this.isDrawing = true;
     this.canvas.clear();
     this.canvas.redraw();
     if (!this.selectGroup(e) && !this.selectShape(e)) {
       this.canvas.selectedShapes = [];
-      this.setIsDrawing(false);
+      this.isDrawing = false;
       return;
     }
     this.canvas.selectedShapes.forEach((shape) => {
@@ -38,7 +40,7 @@ export default class CursorWidget extends Widget {
   }
 
   mouseUp(): void {
-    this.setIsDrawing(false);
+    this.isDrawing = false;
   }
 
   mouseOut(): void {
