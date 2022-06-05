@@ -1,10 +1,10 @@
-import Store from '../store';
+import Canvas from '../canvas';
 
 export default class ViewTool {
-  private store: Store;
+  private canvas: Canvas;
 
-  constructor(store: Store) {
-    this.store = store;
+  constructor(canvas: Canvas) {
+    this.canvas = canvas;
     this.init();
   }
 

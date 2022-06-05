@@ -4,11 +4,11 @@ import { Rectangle } from '../shapes';
 export default class RectangleWidget extends Widget {
   readonly cursor: string = 'crosshair';
   
-  private shape: Rectangle = new Rectangle(this.store.ctx);
+  private shape: Rectangle = new Rectangle(this.canvas.ctx);
 
   mouseDown(e: MouseEvent): void {
     this.setIsDrawing(true);
-    this.shape = new Rectangle(this.store.ctx);
+    this.shape = new Rectangle(this.canvas.ctx);
     this.shape.setX(e.offsetX);
     this.shape.setY(e.offsetY);
   }
@@ -23,7 +23,7 @@ export default class RectangleWidget extends Widget {
   }
 
   mouseUp(): void {
-    this.store.shapes.push(this.shape);
+    this.canvas.shapes.push(this.shape);
     this.setIsDrawing(false);
   }
 

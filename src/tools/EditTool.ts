@@ -1,10 +1,10 @@
-import Store from '../store';
+import Canvas from '../canvas';
 
 export default class EditTool {
-  private store: Store;
+  private canvas: Canvas;
 
-  constructor(store: Store) {
-    this.store = store;
+  constructor(canvas: Canvas) {
+    this.canvas = canvas;
     this.init();
   }
 
@@ -15,19 +15,18 @@ export default class EditTool {
   }
 
   private delete(): void {
-    this.store.shapes = this.store.shapes.filter((shape) => {
-      return !this.store.selectedShapes.some((selectedShape) => selectedShape === shape);
+    this.canvas.shapes = this.canvas.shapes.filter((shape) => {
+      return !this.canvas.selectedShapes.some((selectedShape) => selectedShape === shape);
     });
-    console.log(this.store.shapes);
   }
 
   private group(): void {
-    if (this.store.selectedShapes.length <= 1) return;
-    if (this.store.groups.some((group) => group === this.store.selectedShapes)) return;
-    this.store.groups.push(this.store.selectedShapes);
+    if (this.canvas.selectedShapes.length <= 1) return;
+    if (this.canvas.groups.some((group) => group === this.canvas.selectedShapes)) return;
+    this.canvas.groups.push(this.canvas.selectedShapes);
   }
 
   private ungroup(): void {
-    this.store.groups = this.store.groups.filter((group) => group !== this.store.selectedShapes);
+    this.canvas.groups = this.canvas.groups.filter((group) => group !== this.canvas.selectedShapes);
   }
 }

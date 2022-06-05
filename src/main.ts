@@ -1,11 +1,11 @@
 import { WidgetFactory } from './factories';
-import Store from './store';
+import Canvas from './canvas';
 import { Drawable } from './widgets';
 import { FileTool, EditTool, ViewTool } from './tools';
 import './style.css';
 
 class App {
-  private store: Store = new Store();
+  private canvas: Canvas = new Canvas();
 
   private widget: Drawable | null = null;
 
@@ -16,34 +16,34 @@ class App {
   }
 
   private initTools(): void {
-    new FileTool(this.store);
-    new EditTool(this.store);
-    new ViewTool(this.store);
+    new FileTool(this.canvas);
+    new EditTool(this.canvas);
+    new ViewTool(this.canvas);
   }
 
   private initWidgets(): void {
     const elements = document.getElementsByClassName('widget');
     Array.from(elements).forEach((element: Element) => {
-      const widget = WidgetFactory.create(element, this.store) as Drawable;
+      const widget = WidgetFactory.create(element, this.canvas) as Drawable;
       element.addEventListener('click', () => this.useWidget(widget));
     });
   }
 
   private initCanvas(): void {
     this.resizeCanvas();
-    this.store.canvas.addEventListener('mousedown', (e: MouseEvent) => {
+    this.canvas.canvas.addEventListener('mousedown', (e: MouseEvent) => {
       e.preventDefault();
       this.widget?.mouseDown(e);
     });
-    this.store.canvas.addEventListener('mousemove', (e: MouseEvent) => {
+    this.canvas.canvas.addEventListener('mousemove', (e: MouseEvent) => {
       e.preventDefault();
       this.widget?.mouseMove(e);
     });
-    this.store.canvas.addEventListener('mouseup', (e: MouseEvent) => {
+    this.canvas.canvas.addEventListener('mouseup', (e: MouseEvent) => {
       e.preventDefault();
       this.widget?.mouseUp(e);
     });
-    this.store.canvas.addEventListener('mouseout', (e: MouseEvent) => {
+    this.canvas.canvas.addEventListener('mouseout', (e: MouseEvent) => {
       e.preventDefault();
       this.widget?.mouseOut(e);
     });
@@ -58,8 +58,8 @@ class App {
   }
 
   private resizeCanvas(): void {
-    this.store.canvas.height = window.innerHeight - ((document.getElementById('header') as HTMLElement).clientHeight);
-    this.store.canvas.width = window.innerWidth - ((document.getElementById('sidebar') as HTMLElement).clientWidth);
+    this.canvas.canvas.height = window.innerHeight - ((document.getElementById('header') as HTMLElement).clientHeight);
+    this.canvas.canvas.width = window.innerWidth - ((document.getElementById('sidebar') as HTMLElement).clientWidth);
     this.widget?.redraw();
   }
 }

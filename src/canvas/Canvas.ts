@@ -1,6 +1,6 @@
 import { Shape } from '../shapes';
 
-export default class Store {
+export default class Canvas {
   canvas: HTMLCanvasElement;
 
   ctx: CanvasRenderingContext2D;
