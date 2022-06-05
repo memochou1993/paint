@@ -4,7 +4,7 @@ import { Ellipse } from '../shapes';
 export default class EllipseWidget extends Widget {
   readonly cursor: string = 'crosshair';
 
-  private shape: Ellipse = new Ellipse(this.ctx);
+  private shape: Ellipse = new Ellipse(this.store.ctx);
 
   private startX = 0;
 
@@ -12,7 +12,7 @@ export default class EllipseWidget extends Widget {
 
   mouseDown(e: MouseEvent): void {
     this.setIsDrawing(true);
-    this.shape = new Ellipse(this.ctx);
+    this.shape = new Ellipse(this.store.ctx);
     this.startX = e.offsetX;
     this.startY = e.offsetY;
   }

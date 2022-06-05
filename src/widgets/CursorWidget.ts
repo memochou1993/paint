@@ -66,12 +66,12 @@ export default class CursorWidget extends Widget {
 
   private drawGroupOutline(): void {
     if (this.store.selectedShapes.length <= 1) return;
-    this.ctx.strokeStyle = OutlineStyle.STROKE_COLOR;
+    this.store.ctx.strokeStyle = OutlineStyle.STROKE_COLOR;
     const minX = Math.min(...this.store.selectedShapes.map((shape) => shape.minX));
     const minY = Math.min(...this.store.selectedShapes.map((shape) => shape.minY));
     const maxX = Math.max(...this.store.selectedShapes.map((shape) => shape.maxX));
     const maxY = Math.max(...this.store.selectedShapes.map((shape) => shape.maxY));
-    this.ctx.strokeRect(minX, minY, maxX - minX, maxY - minY);
-    this.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
+    this.store.ctx.strokeRect(minX, minY, maxX - minX, maxY - minY);
+    this.store.ctx.strokeStyle = ShapeStyle.STROKE_COLOR;
   }
 }
