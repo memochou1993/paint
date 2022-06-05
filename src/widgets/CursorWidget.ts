@@ -9,8 +9,8 @@ export default class CursorWidget extends Widget {
 
   mouseDown(e: MouseEvent): void {
     this.setIsDrawing(true);
-    this.clear();
-    this.redraw();
+    this.canvas.clear();
+    this.canvas.redraw();
     if (!this.selectGroup(e) && !this.selectShape(e)) {
       this.setIsDrawing(false);
       return;
@@ -30,8 +30,8 @@ export default class CursorWidget extends Widget {
       shape.setX(e.offsetX - shape.offsetX);
       shape.setY(e.offsetY - shape.offsetY);
     });
-    this.clear();
-    this.redraw();
+    this.canvas.clear();
+    this.canvas.redraw();
     this.canvas.selectedShapes.forEach((shape) => shape.select());
     this.drawGroupOutline();
   }

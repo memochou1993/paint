@@ -51,7 +51,7 @@ class App {
 
   private resizeCanvas(): void {
     this.canvas.resize();
-    this.widget?.redraw();
+    this.canvas.redraw();
   }
 }
 

@@ -15,9 +15,10 @@ export default class EditTool {
   }
 
   private delete(): void {
-    this.canvas.shapes = this.canvas.shapes.filter((shape) => {
-      return !this.canvas.selectedShapes.some((selectedShape) => selectedShape === shape);
-    });
+    this.canvas.groups = this.canvas.groups.filter((group) => group !== this.canvas.selectedShapes);
+    this.canvas.shapes = this.canvas.shapes.filter((shape) => !this.canvas.selectedShapes.some((selectedShape) => selectedShape === shape));
+    this.canvas.clear();
+    this.canvas.redraw();
   }
 
   private group(): void {

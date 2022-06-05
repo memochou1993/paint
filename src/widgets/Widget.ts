@@ -2,13 +2,13 @@ import { Drawable } from './Drawable';
 import Canvas from '../canvas';
 
 export default abstract class Widget implements Drawable {
-  protected canvas: Canvas;
-  
-  protected isDrawing: boolean = false;
-
   abstract element: Element;
   
   abstract cursor: string;
+
+  protected canvas: Canvas;
+  
+  protected isDrawing: boolean = false;
 
   constructor(canvas: Canvas) {
     this.canvas = canvas;
@@ -16,14 +16,6 @@ export default abstract class Widget implements Drawable {
 
   protected setIsDrawing(isDrawing: boolean): void {
     this.isDrawing = isDrawing;
-  }
-
-  clear(): void {
-    this.canvas.ctx.clearRect(0, 0, this.canvas.canvas.width, this.canvas.canvas.height);
-  }
-
-  redraw(): void {
-    this.canvas.shapes.forEach((shape) => shape.draw());
   }
 
   abstract mouseDown(e: MouseEvent): void;

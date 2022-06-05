@@ -22,8 +22,8 @@ export default class EllipseWidget extends Widget {
 
   mouseMove(e: MouseEvent): void {
     if (!this.isDrawing) return;
-    this.clear();
-    this.redraw();
+    this.canvas.clear();
+    this.canvas.redraw();
     const offsetX = (e.offsetX - this.startX) / 2;
     const offsetY = (e.offsetY - this.startY) / 2;
     this.shape.setX(this.startX + offsetX);

@@ -18,8 +18,8 @@ export default class RectangleWidget extends Widget {
 
   mouseMove(e: MouseEvent): void {
     if (!this.isDrawing) return;
-    this.clear();
-    this.redraw();
+    this.canvas.clear();
+    this.canvas.redraw();
     this.shape.setWidth(e.offsetX - this.shape.x);
     this.shape.setHeight(e.offsetY - this.shape.y);
     this.shape.draw();

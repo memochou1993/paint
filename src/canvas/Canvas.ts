@@ -44,6 +44,14 @@ export default class Canvas {
     });
   }
 
+  redraw(): void {
+    this.shapes.forEach((shape) => shape.draw());
+  }
+
+  clear(): void {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
   resize(): void {
     this.canvas.height = window.innerHeight - ((document.getElementById('header') as HTMLElement).clientHeight);
     this.canvas.width = window.innerWidth - ((document.getElementById('sidebar') as HTMLElement).clientWidth);
