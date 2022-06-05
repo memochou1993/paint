@@ -7,17 +7,16 @@ export default class RectangleWidget extends Widget {
   
   readonly cursor: string = 'crosshair';
   
-  private shape: Rectangle = new Rectangle(this.canvas.ctx);
+  private shape: Rectangle | null = null;
 
   mouseDown(e: MouseEvent): void {
-    this.setIsDrawing(true);
     this.shape = new Rectangle(this.canvas.ctx);
     this.shape.setX(e.offsetX);
     this.shape.setY(e.offsetY);
   }
 
   mouseMove(e: MouseEvent): void {
-    if (!this.isDrawing) return;
+    if (!this.shape) return;
     this.canvas.clear();
     this.canvas.redraw();
     this.shape.setWidth(e.offsetX - this.shape.x);
@@ -26,8 +25,9 @@ export default class RectangleWidget extends Widget {
   }
 
   mouseUp(): void {
+    if (!this.shape) return;
     this.canvas.shapes.push(this.shape);
-    this.setIsDrawing(false);
+    this.shape = null;
   }
 
   mouseOut(): void {

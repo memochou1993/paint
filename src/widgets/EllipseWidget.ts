@@ -7,21 +7,20 @@ export default class EllipseWidget extends Widget {
   
   readonly cursor: string = 'crosshair';
 
-  private shape: Ellipse = new Ellipse(this.canvas.ctx);
+  private shape: Ellipse | null = null;
 
   private startX = 0;
 
   private startY = 0;
 
   mouseDown(e: MouseEvent): void {
-    this.setIsDrawing(true);
     this.shape = new Ellipse(this.canvas.ctx);
     this.startX = e.offsetX;
     this.startY = e.offsetY;
   }
 
   mouseMove(e: MouseEvent): void {
-    if (!this.isDrawing) return;
+    if (!this.shape) return;
     this.canvas.clear();
     this.canvas.redraw();
     const offsetX = (e.offsetX - this.startX) / 2;
@@ -34,8 +33,9 @@ export default class EllipseWidget extends Widget {
   }
 
   mouseUp(): void {
+    if (!this.shape) return;
     this.canvas.shapes.push(this.shape);
-    this.setIsDrawing(false);
+    this.shape = null;
   }
 
   mouseOut(): void {

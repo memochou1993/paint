@@ -9,25 +9,27 @@ export default class EditTool {
   }
 
   private init(): void {
-    document.getElementById('delete')?.addEventListener('click', () => this.delete());
     document.getElementById('group')?.addEventListener('click', () => this.group());
     document.getElementById('ungroup')?.addEventListener('click', () => this.ungroup());
-  }
-
-  private delete(): void {
-    this.canvas.groups = this.canvas.groups.filter((group) => group !== this.canvas.selectedShapes);
-    this.canvas.shapes = this.canvas.shapes.filter((shape) => !this.canvas.selectedShapes.some((selectedShape) => selectedShape === shape));
-    this.canvas.clear();
-    this.canvas.redraw();
+    document.getElementById('delete')?.addEventListener('click', () => this.delete());
   }
 
   private group(): void {
-    if (this.canvas.selectedShapes.length <= 1) return;
+    if (this.canvas.selectedShapes.length < 2) return;
     if (this.canvas.groups.some((group) => group === this.canvas.selectedShapes)) return;
     this.canvas.groups.push(this.canvas.selectedShapes);
   }
 
   private ungroup(): void {
+    if (this.canvas.selectedShapes.length < 2) return;
     this.canvas.groups = this.canvas.groups.filter((group) => group !== this.canvas.selectedShapes);
+  }
+
+  private delete(): void {
+    if (this.canvas.selectedShapes.length < 1) return;
+    this.canvas.groups = this.canvas.groups.filter((group) => group !== this.canvas.selectedShapes);
+    this.canvas.shapes = this.canvas.shapes.filter((shape) => !this.canvas.selectedShapes.some((selectedShape) => selectedShape === shape));
+    this.canvas.clear();
+    this.canvas.redraw();
   }
 }

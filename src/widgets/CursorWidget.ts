@@ -12,6 +12,7 @@ export default class CursorWidget extends Widget {
     this.canvas.clear();
     this.canvas.redraw();
     if (!this.selectGroup(e) && !this.selectShape(e)) {
+      this.canvas.selectedShapes = [];
       this.setIsDrawing(false);
       return;
     }
@@ -68,7 +69,7 @@ export default class CursorWidget extends Widget {
   }
 
   private drawGroupOutline(): void {
-    if (this.canvas.selectedShapes.length <= 1) return;
+    if (this.canvas.selectedShapes.length < 2) return;
     this.canvas.ctx.strokeStyle = OutlineStyle.STROKE_COLOR;
     const minX = Math.min(...this.canvas.selectedShapes.map((shape) => shape.minX));
     const minY = Math.min(...this.canvas.selectedShapes.map((shape) => shape.minY));
