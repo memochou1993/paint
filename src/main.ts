@@ -10,9 +10,14 @@ class App {
   private widget: Drawable | null = null;
 
   constructor() {
+    this.initWindow();
     this.initTools();
     this.initWidgets();
     this.initCanvas();
+  }
+
+  private initWindow(): void {
+    window.addEventListener('resize', () => this.resizeCanvas());
   }
 
   private initTools(): void {
@@ -30,36 +35,22 @@ class App {
   }
 
   private initCanvas(): void {
-    this.resizeCanvas();
-    this.canvas.canvas.addEventListener('mousedown', (e: MouseEvent) => {
-      e.preventDefault();
-      this.widget?.mouseDown(e);
-    });
-    this.canvas.canvas.addEventListener('mousemove', (e: MouseEvent) => {
-      e.preventDefault();
-      this.widget?.mouseMove(e);
-    });
-    this.canvas.canvas.addEventListener('mouseup', (e: MouseEvent) => {
-      e.preventDefault();
-      this.widget?.mouseUp(e);
-    });
-    this.canvas.canvas.addEventListener('mouseout', (e: MouseEvent) => {
-      e.preventDefault();
-      this.widget?.mouseOut(e);
-    });
-    window.addEventListener('resize', () => this.resizeCanvas());
+    this.canvas.resize();
+    this.canvas.onMouseDown = (e: MouseEvent) => this.widget?.mouseDown(e);
+    this.canvas.onMouseMove = (e: MouseEvent) => this.widget?.mouseMove(e);
+    this.canvas.onMouseUp = (e: MouseEvent) => this.widget?.mouseUp(e);
+    this.canvas.onMouseOut = (e: MouseEvent) => this.widget?.mouseOut(e);
   }
 
   private useWidget(widget: Drawable): void {
     this.widget?.element.classList.remove('selected');
     this.widget = widget;
     this.widget.element.classList.add('selected');
-    document.body.style.cursor = this.widget.cursor || 'default';
+    document.body.style.cursor = this.widget.cursor;
   }
 
   private resizeCanvas(): void {
-    this.canvas.canvas.height = window.innerHeight - ((document.getElementById('header') as HTMLElement).clientHeight);
-    this.canvas.canvas.width = window.innerWidth - ((document.getElementById('sidebar') as HTMLElement).clientWidth);
+    this.canvas.resize();
     this.widget?.redraw();
   }
 }
