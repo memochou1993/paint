@@ -1,5 +1,5 @@
 import { WidgetFactory } from './factories';
-import Storage from './storage';
+import Store from './store';
 import { Drawable } from './widgets';
 import { FileTool, EditTool, ViewTool } from './tools';
 import './style.css';
@@ -7,7 +7,7 @@ import './style.css';
 class App {
   private canvas: HTMLCanvasElement;
 
-  private storage: Storage = new Storage();
+  private store: Store = new Store();
 
   private widget: Drawable | null = null;
 
@@ -19,15 +19,15 @@ class App {
   }
 
   private initTools(): void {
-    new FileTool(this.storage);
-    new EditTool(this.storage);
-    new ViewTool(this.storage);
+    new FileTool(this.store);
+    new EditTool(this.store);
+    new ViewTool(this.store);
   }
 
   private initWidgets(): void {
     const elements = document.getElementsByClassName('widget');
     Array.from(elements).forEach((element: Element) => {
-      const widget = WidgetFactory.create(element, this.canvas, this.storage) as Drawable;
+      const widget = WidgetFactory.create(element, this.canvas, this.store) as Drawable;
       element.addEventListener('click', () => this.useWidget(widget));
     });
   }

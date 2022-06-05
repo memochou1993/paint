@@ -1,10 +1,10 @@
-import Storage from '../storage';
+import Store from '../store';
 
 export default class ViewTool {
-  private storage: Storage;
+  private store: Store;
 
-  constructor(storage: Storage) {
-    this.storage = storage;
+  constructor(store: Store) {
+    this.store = store;
     this.init();
   }
 

@@ -1,6 +1,6 @@
 import { Shape } from '../shapes';
 
-export default class Storage {
+export default class Store {
   shapes: Shape[] = [];
 
   selectedShapes: Array<Shape> = [];
