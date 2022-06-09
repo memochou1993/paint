@@ -18,7 +18,10 @@ export default class CursorWidget extends Widget {
       this.isDrawing = false;
       return;
     }
-    this.canvas.selectedShapes.forEach((shape) => shape.offset(e.offsetX - shape.x, e.offsetY - shape.y));
+    this.canvas.selectedShapes.forEach((shape) => {
+      shape.offset(e.offsetX - shape.x, e.offsetY - shape.y);
+      shape.select();
+    });
     this.drawGroupOutline();
   }
 
