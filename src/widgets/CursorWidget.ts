@@ -18,21 +18,14 @@ export default class CursorWidget extends Widget {
       this.isDrawing = false;
       return;
     }
-    this.canvas.selectedShapes.forEach((shape) => {
-      shape.setOffsetX(e.offsetX - shape.x);
-      shape.setOffsetY(e.offsetY - shape.y);
-      shape.select();
-    });
+    this.canvas.selectedShapes.forEach((shape) => shape.offset(e.offsetX - shape.x, e.offsetY - shape.y));
     this.drawGroupOutline();
   }
 
   mouseMove(e: MouseEvent): void {
     document.body.style.cursor = this.canvas.shapes.some((shape) => shape.contains(e.offsetX, e.offsetY)) ? 'move' : this.cursor;
     if (!this.isDrawing) return;
-    this.canvas.selectedShapes.forEach((shape) => {
-      shape.setX(e.offsetX - shape.offsetX);
-      shape.setY(e.offsetY - shape.offsetY);
-    });
+    this.canvas.selectedShapes.forEach((shape) => shape.move(e.offsetX, e.offsetY));
     this.canvas.clear();
     this.canvas.redraw();
     this.canvas.selectedShapes.forEach((shape) => shape.select());

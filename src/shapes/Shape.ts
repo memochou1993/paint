@@ -23,12 +23,14 @@ export default abstract class Shape {
     this.y = y;
   }
 
-  setOffsetX(offsetX: number): void {
+  offset(offsetX: number, offsetY: number): void {
     this.offsetX = offsetX;
+    this.offsetY = offsetY;
   }
 
-  setOffsetY(offsetY: number): void {
-    this.offsetY = offsetY;
+  move(x: number, y: number): void {
+    this.setX(x - this.offsetX);
+    this.setY(y - this.offsetY);
   }
 
   abstract get minX(): number;
