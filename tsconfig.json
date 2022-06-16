@@ -18,6 +18,7 @@
   },
   "include": [
     "src",
-    ".eslintrc.js"
+    "vite.config.ts",
+    ".eslintrc.js",
   ]
 }
