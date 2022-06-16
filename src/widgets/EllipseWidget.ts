@@ -34,7 +34,7 @@ export default class EllipseWidget extends Widget {
 
   mouseUp(): void {
     if (!this.shape) return;
-    this.canvas.shapes.push(this.shape);
+    if (!this.shape.isShapeless()) this.canvas.shapes.push(this.shape);
     this.shape = null;
   }
 
