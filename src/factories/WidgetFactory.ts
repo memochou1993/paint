@@ -5,7 +5,6 @@ import {
   CursorWidget,
   RectangleWidget,
   EllipseWidget,
-  LineWidget,
 } from '../widgets';
 
 export default class WidgetFactory {
@@ -17,8 +16,6 @@ export default class WidgetFactory {
         return new RectangleWidget(canvas);
       case WidgetType.Ellipse:
         return new EllipseWidget(canvas);
-      case WidgetType.Line:
-        return new LineWidget(canvas);
       default:
         return null;
     }
